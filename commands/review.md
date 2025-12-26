@@ -26,6 +26,9 @@ Objective: Conduct a strict, high-fidelity code review of the changes tracked by
 /review branch
 ```
 
+- Do not run `git fetch or git checkout`
+- when cd into `submodule` use absolute path.
+
 Scope of Evaluation:
 **Best practices**: Adherence to common coding standards and conventions
 **Naming Conventions**: Audit for descriptive, idiomatic, and consistent naming for variables, functions, and constants.
@@ -34,13 +37,12 @@ Scope of Evaluation:
 **Maintainability**: Highlight areas that increase technical debt or lack modularity.
 
 Output Constraints:
-Target File: write all actionable feedback directly to reviews/review-<YYYYMMDD>-<HHmm>-<snake_cased_title>.md in following format.
+Target File: write all actionable feedback directly to reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md in following format.
 Don't make changes without approval.
 
 ```
-[ Review date: YYYY-MM-DD time ]
 ### 1. **Title**
-**Location** in format [](file-relative-path-from-root#Line) add prefix '../'
+**Location** in format [fileName#L<LineNumberRange>](path-from-project-root#L<starting-line-num, example:L99, not L99-110>) app prefix '../' to path
 **Issue**
 **Recommendation**
 **Impact:**
