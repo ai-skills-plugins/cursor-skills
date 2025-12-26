@@ -16,7 +16,7 @@ Objective: Conduct a strict, high-fidelity code review of the changes tracked by
 ### Scope to specific submodule
 /review sub:submodule-name
 
-### Scope to specific current branch in the submodule against submodule v3 or master branch
+### Scope to specific current branch in the submodule against submodule v3 or master branch.
 /review sub:submodule-name branch
 
 ### Scope to specific branch comparison
@@ -28,6 +28,7 @@ Objective: Conduct a strict, high-fidelity code review of the changes tracked by
 
 - Do not run `git fetch or git checkout`
 - when cd into `submodule` use absolute path.
+- use v3 branch if it exists.
 
 Scope of Evaluation:
 **Best practices**: Adherence to common coding standards and conventions
