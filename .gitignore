@@ -3,3 +3,6 @@ projects/
 worktrees/
 ai-tracking/
 ide_state.json
+cli-config.json
+argv.json
+mcp.json
