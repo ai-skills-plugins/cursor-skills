@@ -1,0 +1,5 @@
+extensions/
+projects/
+worktrees/
+ai-tracking/
+ide_state.json
