@@ -16,7 +16,8 @@ Objective: Conduct a strict, high-fidelity code review of the changes tracked by
 ### Scope to specific submodule
 /review sub:submodule-name
 
-Replace `submodule-name` with the actual name of the submodule you want to review.
+### Scope to specific current branch in the submodule against submodule v3 or master branch
+/review sub:submodule-name branch
 
 ### Scope to specific branch comparison
 /review branch:feature-branch-name
@@ -39,7 +40,7 @@ Don't make changes without approval.
 ```
 [ Review date: YYYY-MM-DD time ]
 ### 1. **Title**
-**Location**
+**Location** in format [](file-relative-path-from-root#Line) add prefix '../'
 **Issue**
 **Recommendation**
 **Impact:**
