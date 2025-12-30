@@ -50,3 +50,5 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
    - **No Redundancy**: Generalize repeating patterns.
    - **No Unapproved Changes**: Do not refactor or rewrite code without explicit approval.
    - **Minimal Diff**: Favour clean, maintainable logic over complex "clever" code.
+   - **PHPDoc (PHP)**: Functions returning `void` do not need `@return void` in their PHPDoc.
+   - **Model Creation (Tests)**: Allow Direct Model Creation instead of always requiring a Factory in test files.
