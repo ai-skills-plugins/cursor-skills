@@ -2,16 +2,24 @@
 description: Systematically investigate an issue to find its root cause.
 ---
 
-Objective: Thoroughly understand the root cause of an issue before proposing any fixes.
+# Objective: Root Cause Integrity
+Systematically isolate the source of a failure using data-driven investigation.
 
-1. **Research Phase**:
-   - Use search tools (codebase search, grep) and terminal commands (logs, directory listing) to gather data.
-   - Explore related components and dependencies.
+1. **Environment & Data Gathering**:
+   - Identify relevant logs for the current stack (e.g., `storage/logs/laravel.log` for PHP, browser console for JS, or build logs for TS/CSS).
+   - Use language-appropriate debugging tools and terminal commands to gather output.
+   - Use grep/codebase search to trace the data flow from the entry point (API, UI, Command) to the failure.
 
-2. **Analysis Phase**:
-   - Generate hypotheses about the cause of the issue.
-   - Verify hypotheses systematically by running commands or examining code paths.
+2. **Investigation Artifact**:
+   - Create an internal "Investigation Plan" (markdown) to track:
+     - Observed symptoms.
+     - Commands executed and their results.
+     - Verified vs. falsified hypotheses.
 
-3. **Output**:
-   - Clearly explain the findings and the verified root cause.
-   - Only propose a fix once the investigation is complete and well-supported.
+3. **Analysis & Verification**:
+   - Systematically prove the root cause. If it's a bug, identify the exact commit or logic change where it was introduced if possible.
+   - Propose a fix *only* after the root cause is 100% isolated and understood across the relevant stack.
+
+4. **Architect's Requirement**:
+   - Distinguish between "symptoms" and "root causes." Ensure the proposed solution fixes the cause, not just the symptom.
+   - Consider cross-language side effects (e.g., how a PHP back-end change affects a TS front-end).

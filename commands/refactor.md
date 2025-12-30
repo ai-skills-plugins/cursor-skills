@@ -2,17 +2,23 @@
 description: Improve code structure and readability without changing behavior.
 ---
 
-Objective: Optimize existing code for better maintainability and readability while preserving all existing functionality.
+# Objective: System Optimization
+Optimize existing code for maximum maintainability and structural integrity while preserving identical functional behavior.
 
-1. **Refining Structure**:
-   - Apply DRY (Don't Repeat Yourself) principles to eliminate duplication.
-   - Improve modularization and organization of functions/classes.
+1. **Pre-Refactor Check**:
+   - Consult `.cursorrules` to ensure alignment with project-specific design patterns (e.g., Service layer, Component-based architecture).
+   - Map existing dependencies to avoid unintended side effects across the stack (back-end vs front-end).
 
-2. **Naming and Clarity**:
-   - Audit and update variable, function, and constant names to be more descriptive and idiomatic.
-   - Simplify complex logic where possible.
+2. **Core Principles**:
+   - **SOLID & Design Patterns**: Prioritize the Single Responsibility Principle. Decompose large methods/classes into focused units.
+   - **Minimal Diff Principle**: Produce the smallest meaningful change. Avoid "noise" changes that complicate future reviews.
+   - **DRY & Clarity**: Eliminate duplication and replace magic numbers/strings with named constants.
 
-3. **Constraints**:
+3. **Verification**:
+   - Behavior must remain 100% identical.
+   - Verify that refactored code passes existing tests across the relevant stack.
+   - **Architect's Audit**: Does this refactor reduce technical debt or just move it?
+
+4. **Constraints**:
    - Do NOT add new features.
-   - Ensure the code follows project-style (e.g., PSR-12 for PHP, object-oriented principles).
-   - Verify that behavior remains identical after changes through testing.
+   - If a breaking change is necessary for structural reasons, request explicit approval via `notify_user` first.

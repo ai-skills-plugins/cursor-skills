@@ -2,16 +2,18 @@
 description: Create or improve automated tests for the codebase.
 ---
 
-Objective: Increase confidence in code quality by implementing robust automated tests.
+# Objective: Quality Assurance & Regression Control
+Build a robust safety net of tests that verify both correctness and failure handling.
 
-1. **Test Strategy**:
-   - Identify the appropriate level of testing: Unit, Integration, or Feature.
-   - Include coverage for both happy paths and edge cases.
+1. **Strategic Coverage**:
+   - **Happy Paths**: Verify standard success scenarios.
+   - **Negative Testing**: Crucial—mandate tests for invalid inputs, authorization failures, and boundary conditions (e.g., empty lists, null/undefined values).
+   - **Edge Cases**: Check race conditions or time-dependent logic.
 
-2. **Standards**:
-   - Follow the project's existing test patterns (e.g., Pest, PHPUnit).
-   - Use established factory helpers and mock objects where appropriate.
+2. **Implementation Standards**:
+   - **State Validation**: Verify that the system state reflected the change correctly (e.g., database assertions like `assertDatabaseHas` or UI state assertions).
+   - Align with project-specific test patterns (e.g., Pest/PHPUnit for back-end, Vitest/Jest for front-end). Use established helpers and factories per `.cursorrules`.
 
 3. **Execution**:
-   - Run existing and new tests to ensure no regressions.
-   - Verify that new tests accurately catch the intended scenarios.
+   - Run tests locally to ensure 100% pass rate.
+   - Ensure the new tests are "isolated"—they should not depend on external state or other tests.

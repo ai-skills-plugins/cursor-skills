@@ -2,17 +2,17 @@
 description: Research and explain code or concepts without making changes.
 ---
 
-Objective: Deepen understanding of the codebase or specific technologies through research and explanation.
+# Objective: Deep System Comprehension
+Provide high-fidelity explanations of system architecture, data flow, and conceptual logic.
 
-1. **Information Gathering**:
-   - Use search tools only: `view_file`, `codebase_search`, `grep_search`, `list_dir`.
-   - Read relevant documentation and source code files.
+1. **Structural Research**:
+   - Consult `.cursorrules` to understand the intended architectural patterns.
+   - Trace data flow from Entry Point (Route/Controller) -> Service Layer -> Model/Database.
 
-2. **Explanation**:
-   - Summarize complex concepts or logic paths clearly.
-   - Use diagrams or examples if they help clarify the structure.
+2. **Architectural Overview**:
+   - Don't just explain lines of code; explain the *relationships* between components.
+   - Identify potential design bottlenecks or deviations from established project patterns.
 
 3. **Constraints**:
-   - Do NOT make any edits to files.
-   - Do NOT run terminal commands (apart from listing directories if needed for navigation).
-   - Ask clarifying questions to the user to resolve ambiguities.
+   - Read-only: Search tools only. No edits or terminal execution.
+   - Goal: Leave the user with a mental model of the system, not just a technical summary.
