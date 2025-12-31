@@ -11,7 +11,7 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
    - **Business Alignment**: Before reviewing code, understand the *intent*. Does the implementation solve the business requirement?
    - **Constraint Check**: Verify changes against `.cursorrules` (e.g., service patterns, naming conventions, language-specific best practices). 
    - Determine scope (master/submodule/branch) from user input. Default: All changes in master and submodules.
-   - `master`: Master repository only.
+   - `master`: Master repository only, do not review submodule.
    - `sub:<name>`: Specific submodule only.
    - `sub:<name> <branch>`: Submodule current branch vs `<branch>` (or `v3`/`master`).
    - `branch:<name>`: Master branch `<name>` vs master.
@@ -36,9 +36,8 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
 3. **Output Format**:
    - Target File: `reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md`
    - Use prefix `../` for paths.
-   - **Sorting**: Sort findings by Impact: **Critical/High** (Security/Stability) -> **Medium** (Logic/Debt) -> **Low** (Style/Naming).
    - Format:
-     ### [Index]. **Title**
+     ### [Index].  **([Impact]) Title**
      **Location**: [fileName#L<LineNumberRange>](../filePath#L<starting-line-num>)
      **Issue**: [Concise description of the problem]
      **Recommendation**: [Specific, actionable fix]
@@ -46,9 +45,10 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
    - `<starting-line-num>` is the line number of the first line of the issue, not the range
 
 4. **Constraints**:
-   - **No Summary**: End immediately after the last feedback item.
+   - **No Summary**: End immediately after the last feedback item. Do not provide Summary again.
    - **No Redundancy**: Generalize repeating patterns.
    - **No Unapproved Changes**: Do not refactor or rewrite code without explicit approval.
    - **Minimal Diff**: Favour clean, maintainable logic over complex "clever" code.
    - **PHPDoc (PHP)**: Functions returning `void` do not need `@return void` in their PHPDoc.
    - **Model Creation (Tests)**: Allow Direct Model Creation instead of always requiring a Factory in test files.
+   - **HttpClient.ts**: should not use `defaultErrorToastMsg`.
