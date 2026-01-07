@@ -6,3 +6,6 @@ ide_state.json
 cli-config.json
 argv.json
 mcp.json
+browser-logs/
+*.plan.md
+*.swp
