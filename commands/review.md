@@ -15,7 +15,7 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
    - Determine scope (master/submodule/branch) from user input. Default: All changes in master and submodules.
    - `master`: Master repository only, do not review submodule.
    - `sub:<name>`: Specific submodule only.
-   - `sub:<name> <branch>`: Submodule current branch vs `<branch>` (or `v3`/`master`).
+   - `sub:<name> <branch>`: Submodule current branch vs `v3`
    - `branch:<name>`: Master branch `<name>` vs master.
    - `branch`: Current branch vs master.
 
