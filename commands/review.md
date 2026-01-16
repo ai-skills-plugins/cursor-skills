@@ -24,6 +24,7 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
    - Do NOT run `git fetch` or `git checkout`.
    - Use absolute paths for submodules.
    - Prefer the `v3` branch for comparison if it exists.
+   - **Read Documentation & Comments First**: Before flagging issues, carefully read all inline comments, JSDoc/PHPDoc comments, and code documentation. Do not flag issues that are already explained or justified in comments.
    - Evaluate changes against:
      - **Best Practices**: Adherence to coding standards and conventions.
      - **Naming Conventions**: Descriptive, idiomatic, and consistent naming.
