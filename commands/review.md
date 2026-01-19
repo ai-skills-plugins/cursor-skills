@@ -57,3 +57,4 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
    - **PHPDoc (PHP)**: Functions returning `void` do not need `@return void` in their PHPDoc.
    - **Model Creation (Tests)**: Allow Direct Model Creation instead of always requiring a Factory in test files.
    - **HttpClient.ts**: should not use `defaultErrorToastMsg`.
+   - **Vue 3 Templates**: Top-level refs are automatically unwrapped in template expressions (including event handlers). Do not flag template ref assignments like `showModal = false` as errors - `.value` is only required in `<script setup>` sections. However, refs nested as object properties (e.g., `obj.ref.value`) still require `.value` in templates.
