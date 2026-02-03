@@ -9,3 +9,4 @@ mcp.json
 browser-logs/
 *.plan.md
 *.swp
+store.db

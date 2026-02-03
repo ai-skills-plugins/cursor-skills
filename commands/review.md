@@ -12,12 +12,14 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
 
    - **Business Alignment**: Before reviewing code, understand the _intent_. Does the implementation solve the business requirement?
    - **Constraint Check**: Verify changes against `.cursorrules` (e.g., service patterns, naming conventions, language-specific best practices).
-   - Determine scope (master/submodule/branch) from user input. Default: All changes in master and submodules.
-   - `master`: Master repository only, do not review submodule.
+   - The primary branch is named `v3`.
+   - When reviewing a specific branch, always compare its changes against the `v3` branch.
+   - Determine scope (main/submodule/branch) from user input. Default: All git staged and unstaged in current branch and submodules.
+   - `v3`: main repository only, do not review submodule.
    - `sub:<name>`: Specific submodule only.
-   - `sub:<name> <branch>`: Submodule current branch vs `v3`
-   - `branch:<name>`: Master branch `<name>` vs master.
-   - `branch`: Current branch vs master.
+   - `sub:<name> branch:<branch>`: Submodule current branch vs `v3`
+   - `branch:<name>`: main branch `<name>` vs v3.
+   - `skill:vuejs` use the vuejs-review skill
 
 2. **Analysis Process**:
 
@@ -53,6 +55,5 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
    - **No Summary**: End immediately after the last feedback item. Do not provide Summary or Summary of finding again at the end. End the dialog immediately after writing the to the markdown.
    - **No Redundancy**: Generalize repeating patterns.
    - **No Unapproved Changes**: Do not refactor or rewrite code without explicit approval.
+   - **Do Not review existing review-\*.md docs**
    - **Minimal Diff**: Favour clean, maintainable logic over complex "clever" code.
-   - **PHPDoc (PHP)**: Functions returning `void` do not need `@return void` in their PHPDoc.
-   - **Model Creation (Tests)**: Allow Direct Model Creation instead of always requiring a Factory in test files.
