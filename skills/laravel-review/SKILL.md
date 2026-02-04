@@ -12,3 +12,5 @@ description: conventions for reviewing Laravel or PHP
 - (High) Do not require imports for classes that are within the same namespace. Only flag missing imports when the class is in a different namespace.
 - Do not require a TABLE constant for a model's own table name unless the table name is used elsewhere (e.g. by other models in relationships). A string literal for `$table` in a single model is acceptable.
 - When performing multiple Eloquent operations in a loop, if only one entry can be invalid: throw a specific exception for that entry and catch it inside the loop so that the remaining operations can continue (e.g. log or collect the failure and proceed with the next iteration).
+- It is acceptable for columns intended for limited values (like enums) to use plain int/string types without explicit database constraints.
+- For services without constructor arguments, prefer resolving/instantiating them via the Laravel Service Container (e.g. `app(MyService::class)`) rather than calling `new MyService()` directly
