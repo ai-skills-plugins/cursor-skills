@@ -10,3 +10,4 @@ browser-logs/
 *.plan.md
 *.swp
 store.db
+prompt_history.json
