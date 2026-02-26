@@ -37,9 +37,10 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
      - **For performance concerns**: Show the **actual query pattern** or operation that causes the issue (e.g., N+1 query in a loop, not just "might be inefficient").
      - **Consider existing coverage**: If tests or static analysis (e.g., PHPStan) already cover the concern, note it rather than flagging as a new issue.
 
-   - Evaluate changes against:
+  - Evaluate changes against:
      - **Best Practices**: Adherence to coding standards and conventions.
      - **Naming Conventions**: Descriptive, idiomatic, and consistent naming. Stress good method names—names should be specific and reflect what the function or method is trying to achieve.
+       - When variable semantics matter, expect names to make it explicit (for example, `email` vs `normalisedEmail` when the value must already be normalised, or `queryToModify`/`mutableQuery` vs a generic `query` when the function is expected to mutate it).
    - **Security Audit**:
      - Check for common vulnerabilities (e.g., mass assignment in models, XSS in front-end, SQL injection).
      - Verify authorization/policy checks at the appropriate layer (e.g., controllers or middleware).
@@ -58,7 +59,7 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
      ### [Index]. **([Impact]) Title**
      **Location**: [fileName#L<LineNumberRange>](../filePath#L<starting-line-num>)
      **Issue**: [Concise description of the problem with evidence - include code paths, call sites, or scenarios that demonstrate the issue]
-     **Recommendation**: [Specific, actionable fix]
+     **Recommendation**: [Specific, actionable fix, including code snippet if feasible]
      **Impact**: [Critical/High/Medium/Low]
    - `<starting-line-num>` is the line number of the first line of the issue, not the range
    - **Issue description must include evidence**: Cite specific call sites, code paths, queries, or scenarios that validate the concern. Avoid generic statements without concrete examples.
