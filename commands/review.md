@@ -39,7 +39,7 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
 
    - Evaluate changes against:
      - **Best Practices**: Adherence to coding standards and conventions.
-     - **Naming Conventions**: Descriptive, idiomatic, and consistent naming.
+     - **Naming Conventions**: Descriptive, idiomatic, and consistent naming. Stress good method names—names should be specific and reflect what the function or method is trying to achieve.
    - **Security Audit**:
      - Check for common vulnerabilities (e.g., mass assignment in models, XSS in front-end, SQL injection).
      - Verify authorization/policy checks at the appropriate layer (e.g., controllers or middleware).
