@@ -20,4 +20,5 @@ RULES:
 
 HttpClient.ts related
 
-- should not prompt to use `defaultErrorToastMsg`, it is up to caller
+- should discourage using `defaultErrorToastMsg`; the API will provide the appropriate error message
+- Avoid `try...catch` with HttpClient unless dedicated error handling is clearly needed and documented.
