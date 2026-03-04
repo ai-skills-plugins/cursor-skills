@@ -7,6 +7,7 @@ description: conventions for reviewing Laravel or PHP
 
 - Functions returning `void` do not need `@return void` in their PHPDoc.
 - When using the `==` operator for comparison, place constants on the left side before the variable, e.g. `'valid' == $submissionStatus`.
+- For null checks: avoid `null == $var` (loose equality also matches `""`, `0`, `false`, `[]`). Prefer `isset($var)` / `!isset($var)` for "set and not null" or "unset or null".
 - For testing, allow Direct Model Creation instead of always requiring a Factory in test files.
 - In test files where a seeder populates a model (e.g. MarketSeeder for Market), do not flag `Model::first()` as potentially null or suggest `firstOrFail()` or factories.
 - Do not flag missing UUID validation for fields that are listed in the `$uuids` array property of request classes extending `AppRequest`. The `$uuids` property automatically validates UUID format in `prepareForValidation()` method, so explicit UUID validation is not needed for these fields.
