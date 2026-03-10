@@ -37,23 +37,23 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
      - **For performance concerns**: Show the **actual query pattern** or operation that causes the issue (e.g., N+1 query in a loop, not just "might be inefficient").
      - **Consider existing coverage**: If tests or static analysis (e.g., PHPStan) already cover the concern, note it rather than flagging as a new issue.
 
-  - Evaluate changes against:
-     - **Best Practices**: Adherence to coding standards and conventions.
-     - **Naming Conventions**: Descriptive, idiomatic, and consistent naming. Stress good method names—names should be specific and reflect what the function or method is trying to achieve.
-       - When variable semantics matter, expect names to make it explicit (for example, `email` vs `normalisedEmail` when the value must already be normalised, or `queryToModify`/`mutableQuery` vs a generic `query` when the function is expected to mutate it).
-   - **Security Audit**:
-     - Check for common vulnerabilities (e.g., mass assignment in models, XSS in front-end, SQL injection).
-     - Verify authorization/policy checks at the appropriate layer (e.g., controllers or middleware).
-     - Check for sensitive information leakage in logs or responses.
-     - **Provide evidence**: Show the code path or scenario where the vulnerability could be exploited.
-   - **Architecture & Logic**:
-     - **SOLID Alignment**: Flag violations, especially the Single Responsibility Principle.
-     - **Edge Cases**: Identify race conditions, null-pointer/undefined risks, or logical flaws.
-     - **Performance**: Flag inefficient operations (e.g., N+1 queries, redundant DOM renders, or memory-heavy patterns).
+- Evaluate changes against:
+  - **Best Practices**: Adherence to coding standards and conventions.
+  - **Naming Conventions**: Descriptive, idiomatic, and consistent naming. Stress good method names—names should be specific and reflect what the function or method is trying to achieve.
+    - When variable semantics matter, expect names to make it explicit (for example, `email` vs `normalisedEmail` when the value must already be normalised, or `queryToModify`/`mutableQuery` vs a generic `query` when the function is expected to mutate it).
+- **Security Audit**:
+  - Check for common vulnerabilities (e.g., mass assignment in models, XSS in front-end, SQL injection).
+  - Verify authorization/policy checks at the appropriate layer (e.g., controllers or middleware).
+  - Check for sensitive information leakage in logs or responses.
+  - **Provide evidence**: Show the code path or scenario where the vulnerability could be exploited.
+- **Architecture & Logic**:
+  - **SOLID Alignment**: Flag violations, especially the Single Responsibility Principle.
+  - **Edge Cases**: Identify race conditions, null-pointer/undefined risks, or logical flaws.
+  - **Performance**: Flag inefficient operations (e.g., N+1 queries, redundant DOM renders, or memory-heavy patterns).
 
 3. **Output Format**:
 
-   - Target File: `reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md`
+   - Target File: `./ai-agents/reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md`
    - Use prefix `../` for paths.
    - Format:
      ### [Index]. **([Impact]) Title**
