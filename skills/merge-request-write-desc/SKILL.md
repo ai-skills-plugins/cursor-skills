@@ -1,32 +1,30 @@
 ---
-description: Generate a concise merge request description summarizing staged changes vs. v3
+name: merge-request-write-desc
+description: Generate a concise merge request description from staged changes. Use when drafting an MR/PR description or summarizing branch changes vs. base.
 ---
 
-## Objectives
+## Output
 
-draft a clear, concise merge request description for the current branch and save it to `./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<commit-branch-name>.md` with minimal required input.
+Save the MR description to:
 
-## Pull Request Description Section
+`./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<current-branch-name>.md`
 
-### Must Have
+## MR description sections
 
-- **Summary**
-  - 1–3 sentences describing what this branch changes.
-- **Changes**
-  - Bullet list of the main code or behaviour changes.
-- **Testing**
-  - How this was tested and current status.
+**Required**
 
-### Additional
+- **Summary** — 1–3 sentences on what this branch changes.
+- **Changes** — Bullet list of main code or behaviour changes.
+- **Testing** — How it was tested and current status.
 
-- Add any extra sections you need beyond the items above.
+**Optional**
 
-### If the changes includes UI changes
+- Add **Screenshots** (with before/after if relevant) when the change includes UI.
+- If the user’s prompt contains `TASK`, add a **Task** section before Summary with a placeholder for the link.
 
-- Add a **Screenshots** section:
-  - Include before/after screenshots if relevant.
+**Suggested commit message** (append or use separately)
 
-## Optional Context by Prompt
-
-- If the prompt with this command includes the word `TASK`:
-  - Add a **Task** section before **Summary** with only a placeholder for the link.
+- Header: `<type>: <short-description>` (e.g. feat, fix, refactor, docs, chore).
+- **Changes** — Bulleted technical modifications.
+- **Rationale** — Brief benefit (consistency, performance, debt reduction).
+- **Testing** — Steps to verify.
