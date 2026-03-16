@@ -57,7 +57,7 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
    - Use prefix `../` for paths.
    - Format:
      ### [Index]. **([Impact]) Title**
-     **Location**: [fileName#L<LineNumberRange>](../filePath#L<starting-line-num>)
+     **Location**: [fileName#L<LineNumberRange>](../../filePath#L<starting-line-num>)
      **Issue**: [Concise description of the problem with evidence - include code paths, call sites, or scenarios that demonstrate the issue]
      **Recommendation**: [Specific, actionable fix, including code snippet if feasible]
      **Impact**: [Critical/High/Medium/Low]
