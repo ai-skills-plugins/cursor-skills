@@ -14,7 +14,9 @@ Save the MR description to:
 **Required**
 
 - **Summary** — 1–3 sentences on what this branch changes.
-- **Changes** — Bullet list of main code or behaviour changes.
+- **Changes** — Bullet list of main code or behaviour changes, ordered **sequentially** to reflect how the flow evolves (earliest/entrypoint changes first, follow‑up/dependent changes after). For closely related steps in the same flow, either:
+  - use **sub‑bullets** under a main bullet, or
+  - use `>` within a single bullet (e.g. `validate input > call service > persist result`) to show the progression.
 - **Testing** — How it was tested and current status.
 
 **Optional**
