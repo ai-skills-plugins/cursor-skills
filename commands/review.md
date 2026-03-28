@@ -53,7 +53,7 @@ Conduct a strict, architectural-level code review of changes tracked by Git, foc
 
 3. **Output Format**:
 
-   - Target File: `./ai-agents/reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md`
+   - Target File: `./ai-agent/reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md`
    - Use prefix `../` for paths.
    - Format:
      ### [Index]. **([Impact]) Title**
