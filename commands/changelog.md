@@ -1,9 +1,17 @@
 ---
-description: produce customer-friendly release note
+description: Turn customer-impacting commit logs into clear release notes
 ---
 
-Analyse the given commit logs which are affecting customers
+Analyse the supplied commit logs that affect customers.
 
-- keep the original prefix using title case
-- tranform them into customer-friendly release note
-- keep the (#number) at the back of the commit log
+- Preserve the original prefix (including brackets and parentheses); use title case for the readable part where appropriate.
+- Rewrite the message as customer-friendly release notes (plain language, outcome-focused).
+- Keep the trailing reference `(#number, commit-id)` on each line.
+
+Changes to be tested:
+
+-
+
+Changes for internal consumption:
+
+-

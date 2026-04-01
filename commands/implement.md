@@ -10,7 +10,7 @@ Execute an implementation plan: implement, self-review, run tests, fix failures 
 
 ## 1. Implement
 
-- **Input**: Latest implementation plan (e.g. `implementations/` or provided plan).
+- **Input**: Latest implementation plan (e.g. `ai-agent/implementations/*.md` or provided plan).
 - **Action**: Implement strictly per plan. Follow project conventions; change only what the plan specifies.
 - **Output**: Generate or modify the necessary files.
 
