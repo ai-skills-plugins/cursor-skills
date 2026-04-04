@@ -22,7 +22,7 @@ Execute an implementation plan: implement, self-review, run tests, fix failures 
 ## 3. Test
 
 - Run the project test suite (e.g. `pnpm test`, `php artisan test`, `pest`, `vitest`).
-- All pass → done. Any failure → go to step 4.
+- All pass → Stop and wait for the user to verify and commit. NEVER run `git commit` yourself. Any failure → go to step 4.
 
 ## 4. Fix and Retry (max 3 attempts)
 
