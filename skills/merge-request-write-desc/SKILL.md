@@ -9,24 +9,41 @@ Save the MR description to:
 
 `./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<current-branch-name>.md`
 
-## MR description sections
+## Workflow
+
+1. Determine the diff base:
+   - If current branch is `v3`, use its normal merge base/upstream.
+   - If current branch is not `v3`, use `v3` as the base branch for summary and change analysis.
+2. Analyze commits and code changes against the selected base.
+3. Write a concise, customer-relevant MR description using the required sections below.
+4. Add optional sections only when relevant.
+5. Save the final content to the output path.
+
+## MR Description Sections
 
 **Required**
 
-- **Summary** — 1–3 sentences on what this branch changes.
-- **Changes** — Bullet list of main code or behaviour changes, ordered **sequentially** to reflect how the flow evolves (earliest/entrypoint changes first, follow‑up/dependent changes after). For closely related steps in the same flow, either:
-  - use **sub‑bullets** under a main bullet, or
-  - use `>` within a single bullet (e.g. `validate input > call service > persist result`) to show the progression.
-- **Testing** — How it was tested and current status.
+- **Summary** — 1-3 sentences on what this branch changes and why it matters.
+- **Changes** — Bulleted main changes ordered sequentially by flow (entrypoint to downstream effects). For related steps in one flow:
+  - use sub-bullets, or
+  - use `>` in one bullet (example: `validate input > call service > persist result`).
+- **Testing** — How it was validated and current status.
+  - For API (PHP) changes, include a frontend developer test scenario focused on consumer-facing behavior:
+    - request payload
+    - expected response shape/status
+    - key error cases
+  - Only include what testers need to validate behavior; omit internal implementation details.
 
 **Optional**
 
-- Add **Screenshots** (with before/after if relevant) when the change includes UI.
-- If the user’s prompt contains `TASK`, add a **Task** section before Summary with a placeholder for the link.
+- **Task** — If the prompt contains `TASK`, add this section before Summary with a placeholder link.
+- **Screenshots** — Add before/after screenshots when UI is affected.
 
-**Suggested commit message** (append or use separately)
+## Suggested Commit Message
 
-- Header: `<type>: <short-description>` (e.g. feat, fix, refactor, docs, chore).
+Append this only when requested by the user.
+
+- Header: `<type>: <short-description>` (example: feat, fix, refactor, docs, chore).
 - **Changes** — Bulleted technical modifications.
-- **Rationale** — Brief benefit (consistency, performance, debt reduction).
+- **Rationale** — Brief value or motivation.
 - **Testing** — Steps to verify.
