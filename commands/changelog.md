@@ -2,9 +2,10 @@
 description: Turn customer-impacting commit logs into clear release notes
 ---
 
+- Precondition: probe first SHA with `git cat-file -e <sha>`. Unreachable → STOP; warn user to `cd` into matching repo (`git fetch` if needed). Classify from `git show <sha>` diff, never titles alone.
 - Analyse supplied commit logs and produce grouped changelog notes.
 - Preserve original prefix, including brackets and parentheses.
-- Trailing refs: single comma-separated parenthetical per bullet; copy `(#…)`/SHAs verbatim from log; rollup fully covered by one `Merge pull request … (#N)` / squash `#` → `(#N)` only (omit branch-tip SHAs); append 7–8 hex SHAs only for commits **not** on that merged feature branch / outside that MR scope (standalone or orphan group); rollup with no `#` → SHA-only list.
+- Trailing refs: single comma-separated parenthetical per bullet; copy `(#…)`/SHAs verbatim from log; rollup fully covered by one `Merge pull request … (#N)` / squash `#` → `(#N)` only (omit branch-tip SHAs); append 7-8 hex SHAs only for commits **not** on that merged feature branch / outside that MR scope (standalone or orphan group); rollup with no `#` → SHA-only list.
 - Rewrite customer-facing entries in plain, outcome-focused language.
 - Use title case for readable headings when appropriate.
 - Group entries by impact:
