@@ -49,3 +49,7 @@ description: Review only the master and submodule repo changes tracked by Git.
 - Impact gating: no Critical/High for unverified/speculative concerns; downgrade to Low or omit.
 - After writing review-xxx.md, run related feature tests, unit tests for modified classes, and static analysis — test failures confirm findings and expose false positives before feedback reaches developers.
 - **Fix as recommended** — only when the user prompt contains `fix`
+- `commit` in prompt: one git commit per applied fix; next fix only after prior commit succeeds
+- Commit message mirrors Finding format:
+  - Subject: `([Impact]) Title` (from finding heading)
+  - Body: `Location: [file#Lrange]`; `Issue:` resolved summary; `Recommendation:` implemented change
