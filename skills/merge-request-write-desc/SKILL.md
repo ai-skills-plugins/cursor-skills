@@ -14,6 +14,7 @@ disable-model-invocation: true
 - Analyse commits + diff vs base
 - Write MR sections below; optional sections only when relevant
 - Save to output path
+- **Create commit** only if prompt contain `create commit`
 - **Create PR** only if prompt contains `create pr` or `pr` (case-insensitive):
   - Title = **Git commit title** value
   - Push branch first
@@ -33,6 +34,10 @@ disable-model-invocation: true
     - `[DS]` — database seeding required post-deploy
     - `[B]` — change to existing API or existing request param
 - **Summary** — 1–2 imperative sentences; user/business impact; plain language
+- **Action** — include only when title has `[M]`, `[C]`, and/or `[DS]`; place immediately after Summary; list concrete post-deploy/run commands (one bullet per command; derive from diff — migration class, artisan signature, seeder class):
+  - `[M]` → `php artisan migrate`
+  - `[C]` → `php artisan <command-signature>` (exact signature from the new Command)
+  - `[DS]` → `php artisan db:seed --class=<SeederClass>` (or the project’s documented seed command for that change)
 - **Changes** — execution order (entrypoint → downstream); sub-bullets or `>` chain per flow
 - **Commit framing checklist** — from `git status`, `git diff`, `git log`: intent → type; scope + why over mechanics
 - **Testing** — API (PHP): frontend-consumer scenario only — payload, response shape/status, key errors; omit internals
