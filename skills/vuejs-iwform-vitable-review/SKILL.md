@@ -7,7 +7,8 @@ RULES:
 
 ## Package Imports
 
-- Prefer package imports (`vipaginatedtable`, `vue-iwform`, `vicommon`) over relative paths
+- From app/feature code, import packages (`vipaginatedtable`, `vue-iwform`, `vicommon`) by package name, not relative paths
+- Within a package's own source, use relative imports for siblings; package-name self-reference needs an `exports` map (absent in `vue-iwform`)
 - When a component can be reused by future projects, consider moving it from project code into packages
 
 ## ViPaginatedTable
@@ -39,7 +40,7 @@ RULES:
 
 ## Anti-Patterns
 
-- ❌ Relative imports for package components
+- ❌ Relative imports for package components from app/feature code (relative is correct within the package's own source)
 - ❌ Manual form state management when `isModified` handles it
 - ❌ Duplicated form/table config logic (use composables)
 - ❌ Missing `normaliseTableName()` for table names
