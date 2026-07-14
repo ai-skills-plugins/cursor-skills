@@ -26,11 +26,25 @@ description: Review only the master and submodule repo changes tracked by Git.
   - Edge case: prove reachability.
   - Performance: cite concrete query/op pattern.
   - Existing tests/static analysis coverage: record as coverage, not new defect.
+  - Tooling-enforced issues (linter, static analysis, formatter): skip; record as coverage, not new defect.
 - Review dimensions:
   - Standards/conventions compliance.
   - Naming precision (method purpose, variable semantics, mutability intent).
   - Security: mass assignment, XSS, SQL injection, auth/policy placement, sensitive data leakage.
   - Architecture/logic: SOLID (especially SRP), race/null/undefined paths, inefficiency patterns.
+  - Architecture smell baseline (judgement calls — repo docs override):
+    - Mysterious Name — name doesn't reveal purpose.
+    - Duplicated Code — same logic shape in multiple hunks/files.
+    - Feature Envy — method reaches into another object's data more than its own.
+    - Data Clumps — same fields/params travel together.
+    - Primitive Obsession — primitive/string stands in for a domain concept.
+    - Repeated Switches — same switch/if-cascade on the same type recurs.
+    - Shotgun Surgery — one logical change scattered across many files.
+    - Divergent Change — one module edited for several unrelated reasons.
+    - Speculative Generality — abstraction added for needs the spec doesn't have.
+    - Message Chains — long `a.b().c().d()` navigation.
+    - Middle Man — class/function mostly delegates onward.
+    - Refused Bequest — subclass ignores most of what it inherits.
 - Evidence requirement: every issue must include call path/call site/query/scenario.
 - Output file: `./ai-agent/reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md`.
 - Use `../` path prefix in review links.
