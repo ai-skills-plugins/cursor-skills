@@ -14,56 +14,25 @@ description: Review only the master and submodule repo changes tracked by Git.
   - `sub:<name>`: selected submodule only.
   - `sub:<name> branch:<branch>`: submodule `<branch>` vs `v3`.
 - Default scope: staged + unstaged current branch + submodules.
-- Apply `vuejs-review` for TypeScript/Vue.
-- Apply `laravel-review` for Laravel/PHP.
-- Never run `git fetch` or `git checkout`.
-- Use absolute submodule paths.
-- Prefer `v3` as comparison target when available.
+- Apply `vuejs-review` for TypeScript/Vue; `laravel-review` for Laravel/PHP.
+- Never `git fetch` or `git checkout`; use absolute submodule paths; prefer `v3` comparison target when available.
 - Read inline docs/comments/JSDoc/PHPDoc first; skip issues already justified there.
 - Report only validated findings:
   - Speculative risk without evidence: omit.
   - Inconsistency: cite both divergent code paths.
   - Edge case: prove reachability.
   - Performance: cite concrete query/op pattern.
-  - Existing tests/static analysis coverage: record as coverage, not new defect.
-  - Tooling-enforced issues (linter, static analysis, formatter): skip; record as coverage, not new defect.
-- Review dimensions:
-  - Standards/conventions compliance.
-  - Naming precision (method purpose, variable semantics, mutability intent).
-  - Security: mass assignment, XSS, SQL injection, auth/policy placement, sensitive data leakage.
-  - Architecture/logic: SOLID (especially SRP), race/null/undefined paths, inefficiency patterns.
-  - Architecture smell baseline (judgement calls — repo docs override):
-    - Mysterious Name — name doesn't reveal purpose.
-    - Duplicated Code — same logic shape in multiple hunks/files.
-    - Feature Envy — method reaches into another object's data more than its own.
-    - Data Clumps — same fields/params travel together.
-    - Primitive Obsession — primitive/string stands in for a domain concept.
-    - Repeated Switches — same switch/if-cascade on the same type recurs.
-    - Shotgun Surgery — one logical change scattered across many files.
-    - Divergent Change — one module edited for several unrelated reasons.
-    - Speculative Generality — abstraction added for needs the spec doesn't have.
-    - Message Chains — long `a.b().c().d()` navigation.
-    - Middle Man — class/function mostly delegates onward.
-    - Refused Bequest — subclass ignores most of what it inherits.
-- Evidence requirement: every issue must include call path/call site/query/scenario.
-- Output file: `./ai-agent/reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md`.
-- Use `../` path prefix in review links.
-- Finding format:
-  - `### [Index]. **([Impact]) Title**`
-  - `**Location**: [fileName#L<LineNumberRange>](../../filePath#L<starting-line-num>)`
-  - `**Issue**: concise defect + validating evidence`
-  - `**Recommendation**: actionable fix`
-  - `**Impact**: Critical/High/Medium/Low`
-- `starting-line-num` = first line of issue range.
-- End after last finding; no summary section.
-- Collapse repeated patterns; avoid redundant findings.
-- Do not refactor/rewrite code without explicit approval.
-- Do not review existing `review-*.md`.
-- Prefer minimal, maintainable diffs.
-- Impact gating: no Critical/High for unverified/speculative concerns; downgrade to Low or omit.
-- After writing review-xxx.md, run related feature tests, unit tests for modified classes, and static analysis — test failures confirm findings and expose false positives before feedback reaches developers.
-- **Fix as recommended** — only when the user prompt contains `fix`
-- `commit` in prompt: one git commit per applied fix; next fix only after prior commit succeeds
-- Commit message mirrors Finding format:
-  - Subject: `([Impact]) Title` (from finding heading)
-  - Body: `Location: [file#Lrange]`; `Issue:` resolved summary; `Recommendation:` implemented change
+  - Existing tests/static analysis/tooling coverage: record as coverage, not defect.
+- Review dimensions: standards; naming precision; security (mass assignment, XSS, SQLi, auth/policy, leakage); architecture/logic (SOLID/SRP, race/null paths, inefficiency); smell baseline (Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest) — repo docs override.
+- Evidence: every issue needs call path/call site/query/scenario.
+- Output: `./ai-agent/reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md`; `../` path prefix in links.
+- Finding format: `### [Index]. **([Impact]) Title`** / `**Location**: [fileName#L<LineNumberRange>](../../filePath#L<starting-line-num>)` / `**Issue**` / `**Recommendation**` / `**Impact**: Critical|High|Medium|Low`; `starting-line-num` = first line of issue range.
+- End after last finding; no summary; collapse repeated patterns.
+- No refactor without approval; skip existing `review-*.md`; prefer minimal diffs.
+- Impact gating: no Critical/High for unverified/speculative; downgrade to Low or omit.
+- After writing review file: run related feature/unit tests for modified classes + static analysis; failures confirm findings / expose false positives.
+- Prompt `fix`: apply recommended fixes; `commit` in prompt → one commit per fix (next only after prior succeeds); subject `([Impact]) Title`; body `Location` / `Issue` / `Recommendation` as implemented.
+- Scenario → related review bot (delegate; do not duplicate their specialty here):
+  - Logic bugs / missing error handling / typos / unhandled edge cases → `/review-bugbot` (pre-push).
+  - Auth/login, DB queries, new third-party deps, secrets, injection, broken authz → `/review-security` (optional threat-model prompt).
+  - Architecture / business fit / conventions / smells / multi-repo submodule scope → stay on this skill.
