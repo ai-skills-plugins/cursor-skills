@@ -8,6 +8,7 @@ description: Turn customer-impacting commit logs into clear release notes
 - Preserve original prefix, including brackets and parentheses.
 - Trailing refs: single comma-separated parenthetical per bullet; copy `(#…)`/SHAs verbatim from log; rollup fully covered by one `Merge pull request … (#N)` / squash `#` → `(#N)` only (omit branch-tip SHAs); append 7-8 hex SHAs only for commits **not** on that merged feature branch / outside that MR scope (standalone or orphan group); rollup with no `#` → SHA-only list.
 - Rewrite customer-facing entries in plain, outcome-focused language.
+- Entries state resulting state only; no operator actions, command invocations, or follow-up-task framing. Express migration/command dependencies as consequence, not as steps. `[M]`/`[C]`/`[B]` title prefixes still carry over verbatim.
 - Use title case for readable headings when appropriate.
 - Group entries by impact:
   - `Changes to be tested`: user-visible behavior, workflow, UI, API, validation, permission, data, integration, performance, reliability, or release-risk changes.
