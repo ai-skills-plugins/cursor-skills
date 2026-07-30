@@ -2,7 +2,8 @@
 description: Turn customer-impacting commit logs into clear release notes
 ---
 
-- Precondition: probe first SHA with `git cat-file -e <sha>`. Unreachable → STOP; warn user to `cd` into matching repo (`git fetch` if needed). Classify from `git show <sha>` diff, never titles alone.
+- Precondition: probe first SHA with `git cat-file -e <sha>`. Unreachable → STOP; warn user to `cd` into matching repo (`git fetch` if needed).
+- Mandatory per entry: read full patch hunks (`git show <sha>`, submodules `git -C <path> show <sha>`) before classifying or describing. Never infer from title, commit/PR body prose, release-note summary, or `--stat`; heading and outcome sentence must match actual code hunks. Equal insertions/deletions in one file signals reorder/move, not new behavior — confirm in hunks.
 - Analyse supplied commit logs and produce grouped changelog notes.
 - Preserve original prefix, including brackets and parentheses.
 - Trailing refs: single comma-separated parenthetical per bullet; copy `(#…)`/SHAs verbatim from log; rollup fully covered by one `Merge pull request … (#N)` / squash `#` → `(#N)` only (omit branch-tip SHAs); append 7-8 hex SHAs only for commits **not** on that merged feature branch / outside that MR scope (standalone or orphan group); rollup with no `#` → SHA-only list.
