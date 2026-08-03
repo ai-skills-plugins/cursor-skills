@@ -6,19 +6,20 @@ disable-model-invocation: true
 
 ## Output
 
-- Save to `./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<current-branch-name>.md`
+- Prompt contains `pr` (case-insensitive): **do not** write an MR markdown file; pass body inline to `fj pr create` via `--body`
+- Otherwise: save to `./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<current-branch-name>.md`
 
 ## Workflow
 
 - Diff base: branch `v3` → normal merge base/upstream; else → `v3`
 - Analyse commits + diff vs base
 - Write MR sections below; optional sections only when relevant
-- Save to output path
+- Persist per Output rules above (file only when prompt has no `pr`)
 - **Create commit** only if prompt contain `create commit`
 - **Create PR** only if prompt contains `create pr` or `pr` (case-insensitive):
   - Title = **Git commit title** value
   - Push branch first
-  - Repo root: `fj pr create "<title>" --body-file "./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<current-branch-name>.md"`; append `--base v3` when current branch ≠ `v3`
+  - Repo root: `fj pr create "<title>" --body "$(cat <<'EOF'` …MR sections… `EOF\n)"`; append `--base v3` when current branch ≠ `v3` (no `--body-file`; no MR markdown under `ai-agent/merge-requests/`)
   - On failure: report stderr; no blind retry
 
 ## MR Description Sections
@@ -45,4 +46,3 @@ disable-model-invocation: true
 **Optional**
 
 - **Task** — prompt contains `TASK` → section before Summary with placeholder link
-- **Screenshots** — UI affected only

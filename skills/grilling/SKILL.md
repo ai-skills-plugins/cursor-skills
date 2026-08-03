@@ -7,7 +7,7 @@ Interview me relentlessly about every aspect of this plan until we reach a share
 
 Ask the questions one at a time, waiting for feedback on each question before continuing. Asking multiple questions at once is bewildering.
 
-For less common terms, explain them. For complex options, elaborate enough that the trade-offs are clear before I choose.
+For less common terms, explain them. For complex options, elaborate enough that the trade-offs are clear before I choose. Each option includes a minimal example.
 
 If a *fact* can be found by exploring the codebase, look it up rather than asking me. The *decisions*, though, are mine — put each one to me and wait for my answer.
 

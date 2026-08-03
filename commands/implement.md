@@ -34,3 +34,11 @@ description: Implement a solution from an implementation plan, then review, test
 - No scope creep; minimal fixes on failure.
 - Project standard test command; do not skip or substitute tests.
 - Omit trivial, skippable issues from user-facing report.
+
+## Execution venue (main vs sub-agent)
+
+- Default: run in parent chat (warm plan/conventions; avoid re-prompt tax).
+- Sub-agent: parent context already large; isolation wanted; parallel independent checkpoints.
+- Sub-agent total tokens ≈ same or higher (child work + handoff + summary); parent window stays lean.
+- Sub-agent prompt must be self-contained: plan path, this command, scope, return contract (done files, test result, failures).
+- Skip sub-agent for small one-checkpoint work or when mid-flight steering in the same thread is required.
