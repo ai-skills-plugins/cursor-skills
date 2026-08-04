@@ -4,41 +4,44 @@ description: Implement a solution from an implementation plan, then review, test
 
 # Implement, Review, Test, and Validate
 
-**Re-entry**: If implementation/tasks already done, start at step 2 (Review).
+**Re-entry**: prior implement/tasks done → start at step 2 (Review).
 
 ## 1. Implement
 
-- Input: latest implementation plan (`ai-agent/implementations/*.md` or provided plan).
-- Implement strictly per plan; project conventions; change only plan scope.
-- Checkpoint scope: smallest complete feature unit per atomic commit (route + Action + tests for one feature; no cross-checkpoint bundling).
-- Tests: extend existing test files/cases when coverage fits; avoid new files or duplicate setup for the same surface.
+- Input: latest plan (`ai-agent/implementations/*.md` or provided).
+- Strict plan scope + project conventions only.
+- Checkpoint = one atomic feature unit (route + Action + tests); no cross-checkpoint bundling.
+- Prefer extend existing tests; avoid new files/duplicate setup for same surface.
+- Commits:
+  - Single checkpoint: do not commit unless user explicitly asked.
+  - Multiple checkpoints: auto-commit after each checkpoint passes its review+test gate.
 
 ## 2. Review
 
-- Self-review before testing: correctness vs plan, naming/structure, edge cases, security (no sensitive exposure, auth where needed).
-- Fix issues before running tests.
+- Self-review vs plan: correctness, naming/structure, edges, auth/sensitive exposure.
+- Fix before tests.
 
 ## 3. Test
 
-- Run project test suite (`bun test`, `php artisan test`, `pest`, `vitest`).
-- All pass → stop; wait for user verify/commit. NEVER `git commit`. Failure → step 4.
+- Project suite (`bun test` / `php artisan test` / `pest` / `vitest`).
+- Pass → multi-checkpoint: commit then next checkpoint; single-checkpoint: stop, wait user verify (no commit unless asked).
+- Fail → step 4.
 
-## 4. Fix and Retry (max 3 attempts)
+## 4. Fix and Retry (max 3)
 
-- On failure: root cause from messages/logs, minimal fix, re-run tests.
-- Max **3** attempts per implementation.
-- After 3 failures: stop; report implemented scope, remaining failures (last errors), fixes tried, next steps. Do not claim success.
+- Root-cause from messages/logs → minimal fix → re-test.
+- Cap 3 attempts per implementation.
+- After 3 failures: stop; report scope done, remaining failures (last errors), fixes tried, next steps. No success claim.
 
 ## Constraints
 
-- No scope creep; minimal fixes on failure.
-- Project standard test command; do not skip or substitute tests.
-- Omit trivial, skippable issues from user-facing report.
+- No scope creep; minimal failure fixes.
+- Use project standard test command; no skip/substitute.
+- Omit trivial/skippable issues from user report.
 
-## Execution venue (main vs sub-agent)
+## Execution venue
 
-- Default: run in parent chat (warm plan/conventions; avoid re-prompt tax).
-- Sub-agent: parent context already large; isolation wanted; parallel independent checkpoints.
-- Sub-agent total tokens ≈ same or higher (child work + handoff + summary); parent window stays lean.
-- Sub-agent prompt must be self-contained: plan path, this command, scope, return contract (done files, test result, failures).
-- Skip sub-agent for small one-checkpoint work or when mid-flight steering in the same thread is required.
+- Default: parent chat (warm plan/conventions).
+- Sub-agent when: parent context large, isolation wanted, or parallel independent checkpoints.
+- Sub-agent prompt self-contained: plan path, this command, scope, return contract (files, test result, failures).
+- Skip sub-agent for one-checkpoint or mid-flight steering in-thread.
