@@ -21,4 +21,8 @@ description: Turn customer-impacting commit logs into clear release notes
 - One shared `(#…)` or one MR scope → one changelog bullet; anchor text from `Merge pull request … (#…)` / squash-merge head carrying that ref; skip sibling branch commits on that MR unless they add an uncovered deliverable.
 - Omit changelog rows for branch-sync-only merges (`Merge branch …`, `Merge remote-tracking branch …`, `Merge remote-tracking branch 'origin/production' …`, same-repo staging/production propagation) with no exclusive deliverable; **do not list under any section** (including internal) and **do not** add a compensatory bullet that only names that merge or its tip SHA to “explain” the sync. `Merge pull request … (#…)` is not branch-sync; never duplicate the same `(#…)` as both that anchor and a branch-tip title.
 - Keep each entry scannable: `- **Heading**: Outcome sentence. (references)`
+- Expand to sub-bullets when one MR scope carries >=5 distinct user-visible outcomes (separate endpoints, validation families, permission or response-shape changes) or when the outcome would run past ~4 sentences; shape: `- **Heading**: One-line scope sentence. (references)` then one indented sub-bullet per outcome, one sentence each, verb-first.
+  - References stay on the lead line only; sub-bullets carry no `(#…)`/SHA and never promote one MR scope into multiple top-level bullets.
+  - Sub-bullets obey the same rules as entries: hunk-derived, resulting state only, no operator actions or command invocations.
+  - Under either threshold → keep prose; never pad an entry into a list.
 - Omit empty sections.
