@@ -45,6 +45,18 @@ projects/*/*
 # <<< CURSOR MANAGED BLOCK <<<
 plans/
 projects/
+skills/agents-sdk/
 skills-cursor/canvas
 plugins/cache
 .sync-manifest.json
+skills/cloudflare*
+skills/durable-objects
+skills/moomooapi
+skills/sandbox-migrate-to-next/
+skills/sandbox-next/
+skills/sandbox-stable/
+skills/triage/
+skills/turnstile-spin/
+skills/web-perf/
+skills/workers-best-practices/
+skills/wrangler/

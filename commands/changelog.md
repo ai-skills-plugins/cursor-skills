@@ -9,7 +9,10 @@ description: Turn customer-impacting commit logs into clear release notes
 - Trailing refs: single comma-separated parenthetical per bullet; render each PR ref as inline-code `#NNN` (backticks per ref, not around the group), digits copied verbatim from log's `(#…)`, no padding; SHAs stay bare, uncoded; rollup fully covered by one `Merge pull request … (#N)` / squash `#` → that one ref only (omit branch-tip SHAs); append 7-8 hex SHAs only for commits **not** on that merged feature branch / outside that MR scope (standalone or orphan group); rollup with no `#` → SHA-only list.
 - Rewrite customer-facing entries in plain, outcome-focused language.
 - Entries state resulting state only; no operator actions, command invocations, or follow-up-task framing. Express migration/command dependencies as consequence, not as steps. `[M]`/`[C]`/`[B]` title prefixes still carry over verbatim.
+- Prefer user-visible outcomes over transport/status jargon: e.g. "rejected with a clear validation error" not `422`; avoid HTTP codes, exception names, DB columns, and payload keys unless the audience is explicitly technical.
+- Describe what the admin can do or will see; omit implementation detail that does not change how they use the product.
 - Use title case for readable headings when appropriate.
+- Tone above applies to `Changes to be tested`; `Changes for internal consumption` may keep technical names.
 - Group entries by impact:
   - `Changes to be tested`: user-visible behavior, workflow, UI, API, validation, permission, data, integration, performance, reliability, or release-risk changes.
   - `Changes for internal consumption`: refactors, renames, moves, formatting, cleanup, documentation, tests, tooling, prompts, skills, config, dependency metadata, and other behavior-preserving changes.
