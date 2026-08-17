@@ -8,10 +8,15 @@ description: Implement a solution from an implementation plan, then review, test
 
 ## 1. Implement
 
-- Input: latest implementation plan (`ai-agent/implementations/*.md` or provided plan).
-- Implement strictly per plan; project conventions; change only plan scope.
-- Checkpoint scope: smallest complete feature unit per atomic commit (route + Action + tests for one feature; no cross-checkpoint bundling).
+- Input: latest plan (`ai-agent/implementations/*.md` or provided).
+- Strict plan scope + project conventions only.
+- Checkpoint = one atomic feature unit (route + Action + tests); no cross-checkpoint bundling.
+- Prefer extend existing tests; avoid new files/duplicate setup for same surface.
+- If work is not atomic and no checkpoint is specified: create own checkpoint list first; execute one checkpoint at a time; each checkpoint = one commit.
 - Tests: extend existing test files/cases when coverage fits; avoid new files or duplicate setup for the same surface.
+- Commits:
+  - Single checkpoint: do not commit unless user explicitly asked.
+  - Multiple checkpoints: auto-commit after each checkpoint passes its review+test gate.
 
 ## 2. Review
 
