@@ -6,20 +6,29 @@ disable-model-invocation: true
 
 ## Output
 
-- Save to `./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<current-branch-name>.md`
+- **No PR:** save to `./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<current-branch-name>.md`
+- **Create PR:** do not save markdown; pass body inline via `--body`
+- **Create PR — report URL:** `fj pr create` prints only `#<number>`; always derive and show the **full PR URL** in the final response (markdown link or bare URL). Never report `#123` alone.
 
 ## Workflow
 
 - Diff base: branch `v3` → normal merge base/upstream; else → `v3`
 - Analyse commits + diff vs base
 - Write MR sections below; optional sections only when relevant
-- Save to output path
 - **Create commit** only if prompt contain `create commit`
 - **Create PR** only if prompt contains `create pr` or `pr` (case-insensitive):
   - Title = **Git commit title** value
   - Push branch first
-  - Repo root: `fj pr create "<title>" --body-file "./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<current-branch-name>.md"`; append `--base v3` when current branch ≠ `v3`
+  - Repo root: `fj pr create "<title>" --body "$(cat <<'EOF'
+<body>
+EOF
+)"`; append `--base v3` when current branch ≠ `v3`
   - On failure: report stderr; no blind retry
+  - On success: parse PR number from stdout (`#<number>`); build URL from the Forgejo remote (usually `origin` via `git remote get-url`):
+    - SSH `git@<host>:<owner>/<repo>.git` → `https://<host>/<owner>/<repo>/pulls/<number>`
+    - HTTPS `https://<host>/<owner>/<repo>.git` → `https://<host>/<owner>/<repo>/pulls/<number>`
+  - Final output: include the full PR URL (e.g. `https://code.vilor.com/owner/repo/pulls/631`), not just the number
+- **No PR:** save to output path after writing sections
 
 ## MR Description Sections
 

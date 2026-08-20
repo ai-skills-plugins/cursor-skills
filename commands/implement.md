@@ -14,9 +14,7 @@ description: Implement a solution from an implementation plan, then review, test
 - Prefer extend existing tests; avoid new files/duplicate setup for same surface.
 - If work is not atomic and no checkpoint is specified: create own checkpoint list first; execute one checkpoint at a time; each checkpoint = one commit.
 - Tests: extend existing test files/cases when coverage fits; avoid new files or duplicate setup for the same surface.
-- Commits:
-  - Single checkpoint: do not commit unless user explicitly asked.
-  - Multiple checkpoints: auto-commit after each checkpoint passes its review+test gate.
+- Commits: after each atomic checkpoint passes its review+test gate, commit that checkpoint only. Do not commit a failed checkpoint.
 
 ## 2. Review
 
@@ -26,7 +24,7 @@ description: Implement a solution from an implementation plan, then review, test
 ## 3. Test
 
 - Run project test suite (`bun test`, `php artisan test`, `pest`, `vitest`).
-- All pass → stop; wait for user verify/commit. NEVER `git commit`. Failure → step 4.
+- All pass → commit that atomic checkpoint; more atomics remain → next checkpoint (step 1); last atomic → stop. Failure → step 4.
 
 ## 4. Fix and Retry (max 3 attempts)
 
