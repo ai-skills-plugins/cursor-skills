@@ -23,9 +23,8 @@ description: Implement a solution from an implementation plan, then review, test
 
 ## 3. Test
 
-- Project suite (`bun test` / `php artisan test` / `pest` / `vitest`).
-- Pass → multi-checkpoint: commit then next checkpoint; single-checkpoint: stop, wait user verify (no commit unless asked).
-- Fail → step 4.
+- Run project test suite (`bun test`, `php artisan test`, `pest`, `vitest`).
+- All pass → stop; wait for user verify/commit. NEVER `git commit`. Failure → step 4.
 
 ## 4. Fix and Retry (max 3)
 

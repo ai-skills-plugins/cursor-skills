@@ -1,5 +1,5 @@
 ---
-name: review
+name: v3-review
 description: Review only the master and submodule repo changes tracked by Git.
 ---
 

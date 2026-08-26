@@ -2,20 +2,30 @@
 description: Turn customer-impacting commit logs into clear release notes
 ---
 
-- Precondition: probe first SHA with `git cat-file -e <sha>`. Unreachable → STOP; warn user to `cd` into matching repo (`git fetch` if needed). Classify from `git show <sha>` diff, never titles alone.
+- Precondition: probe first SHA with `git cat-file -e <sha>`. Unreachable → STOP; warn user to `cd` into matching repo (`git fetch` if needed).
+- Mandatory per entry: read full patch hunks (`git show <sha>`, submodules `git -C <path> show <sha>`) before classifying or describing. Never infer from title, commit/PR body prose, release-note summary, or `--stat`; heading and outcome sentence must match actual code hunks. Equal insertions/deletions in one file signals reorder/move, not new behavior — confirm in hunks.
 - Analyse supplied commit logs and produce grouped changelog notes.
 - Preserve original prefix, including brackets and parentheses.
-- Trailing refs: single comma-separated parenthetical per bullet; copy `(#…)`/SHAs verbatim from log; rollup fully covered by one `Merge pull request … (#N)` / squash `#` → `(#N)` only (omit branch-tip SHAs); append 7-8 hex SHAs only for commits **not** on that merged feature branch / outside that MR scope (standalone or orphan group); rollup with no `#` → SHA-only list.
+- Trailing refs: single comma-separated parenthetical per bullet; render each PR ref as inline-code `#NNN` (backticks per ref, not around the group), digits copied verbatim from log's `(#…)`, no padding; SHAs stay bare, uncoded; rollup fully covered by one `Merge pull request … (#N)` / squash `#` → that one ref only (omit branch-tip SHAs); append 7-8 hex SHAs only for commits **not** on that merged feature branch / outside that MR scope (standalone or orphan group); rollup with no `#` → SHA-only list. After that parenthetical, same line, append `(- <Author Name>)` from commit `%an` (example: `(#609) (- Yuin Foong)`); one unique name, or comma-separated when a rollup has multiple authors.
 - Rewrite customer-facing entries in plain, outcome-focused language.
+- Entries state resulting state only; no operator actions, command invocations, or follow-up-task framing. Express migration/command dependencies as consequence, not as steps. `[M]`/`[C]`/`[B]` title prefixes still carry over verbatim.
+- Prefer user-visible outcomes over transport/status jargon: e.g. "rejected with a clear validation error" not `422`; avoid HTTP codes, exception names, DB columns, and payload keys unless the audience is explicitly technical.
+- Describe what the admin can do or will see; omit implementation detail that does not change how they use the product.
 - Use title case for readable headings when appropriate.
+- Tone above applies to `Changes to be tested`; `Changes for internal consumption` may keep technical names.
 - Group entries by impact:
   - `Changes to be tested`: user-visible behavior, workflow, UI, API, validation, permission, data, integration, performance, reliability, or release-risk changes.
   - `Changes for internal consumption`: refactors, renames, moves, formatting, cleanup, documentation, tests, tooling, prompts, skills, config, dependency metadata, and other behavior-preserving changes.
 - Treat behavior-preserving code changes as internal consumption: renames, namespace moves, extraction, consolidation, dead-code removal, restructuring, integration/service rerouting behind stable contracts; `Changes to be tested` only when identical inputs yield different HTTP/JSON, validation, permissions, or substantive side effects.
+- Extend the same test to schema/data-layer changes: storage-representation changes invisible at the API boundary are `Changes for internal consumption`, migration and backfill included — column type, primary-key strategy, generated-value scheme, storage format. `Changes to be tested` only when the change surfaces in HTTP/JSON, validation, or a customer-facing business identifier.
 - Do not claim customer impact when the commit only changes maintainability, organization, naming, or developer workflow.
 - Composer/lockfile edits: default to normal dependency/release rubric; `Changes for internal consumption` only when the diff strictly root-declares or reinstalls packages previously satisfied only transitively (graph hygiene, same effective library) with no deliberate semver move, substitution, or advisory response evident from message/diff.
 - Merge related commits into one concise entry when they share the same user-facing or internal outcome.
-- One shared `(#…)` or one MR scope → one changelog bullet; anchor text from `Merge pull request … (#…)` / squash-merge head carrying that ref; skip sibling branch commits on that MR unless they add an uncovered deliverable.
-- Omit changelog rows for branch-sync-only merges (`Merge branch …`, `Merge remote-tracking branch …`, `Merge remote-tracking branch 'origin/production' …`, same-repo staging/production propagation) with no exclusive deliverable; **do not list under any section** (including internal) and **do not** add a compensatory bullet that only names that merge or its tip SHA to “explain” the sync. `Merge pull request … (#…)` is not branch-sync; never duplicate the same `(#…)` as both that anchor and a branch-tip title.
-- Keep each entry scannable: `- **Heading**: Outcome sentence. (references)`
+- One shared `#NNN` or one MR scope → one changelog bullet; anchor text from `Merge pull request … (#…)` / squash-merge head carrying that ref; skip sibling branch commits on that MR unless they add an uncovered deliverable.
+- Omit changelog rows for branch-sync-only merges (`Merge branch …`, `Merge remote-tracking branch …`, `Merge remote-tracking branch 'origin/production' …`, same-repo staging/production propagation) with no exclusive deliverable; **do not list under any section** (including internal) and **do not** add a compensatory bullet that only names that merge or its tip SHA to “explain” the sync. `Merge pull request … (#…)` is not branch-sync; never duplicate the same PR ref as both that anchor and a branch-tip title.
+- Keep each entry scannable: ``- **Heading**: Outcome sentence. (`#NNN`, <sha>) (- Author Name)``
+- Expand to sub-bullets when one MR scope carries >=5 distinct user-visible outcomes (separate endpoints, validation families, permission or response-shape changes) or when the outcome would run past ~4 sentences; shape: `- **Heading**: One-line scope sentence. (references) (- Author Name)` then one indented sub-bullet per outcome, one sentence each, verb-first.
+  - References and author stay on the lead line only; sub-bullets carry no `#NNN`/SHA/author and never promote one MR scope into multiple top-level bullets.
+  - Sub-bullets obey the same rules as entries: hunk-derived, resulting state only, no operator actions or command invocations.
+  - Under either threshold → keep prose; never pad an entry into a list.
 - Omit empty sections.
