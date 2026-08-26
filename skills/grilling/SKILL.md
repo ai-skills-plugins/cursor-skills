@@ -11,4 +11,9 @@ For less common terms, explain them. For complex options, elaborate enough that 
 
 If a *fact* can be found by exploring the codebase, look it up rather than asking me. The *decisions*, though, are mine — put each one to me and wait for my answer.
 
-Do not enact the plan until I confirm we have reached a shared understanding.
+After decisions converge, list locked shared understanding (bullets only).
+Then ask: review that understanding for coherence/gaps? Wait for yes/no.
+If no: stop; wait for explicit confirm before enacting.
+If yes: raise **one** issue/gap per turn; include options when non-obvious; always give recommendation; wait for feedback before next issue.
+Amend understanding from feedback; continue one-at-a-time until issues exhausted or user stops.
+Do not enact until user confirms shared understanding after review (or declines review and confirms).
