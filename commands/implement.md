@@ -14,7 +14,7 @@ description: Implement a solution from an implementation plan, then review, test
 - Prefer extend existing tests; avoid new files/duplicate setup for same surface.
 - Commits:
   - Single checkpoint: do not commit unless user explicitly asked.
-  - Multiple checkpoints: auto-commit after each checkpoint passes its review+test gate.
+  - Multiple checkpoints: auto-commit after each checkpoint passes its review+test gate, before the next checkpoint starts. NEVER commit multiple checkpoints into one commit.
 
 ## 2. Review
 
@@ -24,7 +24,7 @@ description: Implement a solution from an implementation plan, then review, test
 ## 3. Test
 
 - Run project test suite (`bun test`, `php artisan test`, `pest`, `vitest`).
-- All pass → stop; wait for user verify/commit. NEVER `git commit`. Failure → step 4.
+- All pass → stop; wait for user verify/commit. NEVER `git commit` (single checkpoint only). Multiple checkpoints: auto-commit per the Commits rule above, then continue the next checkpoint. Failure → step 4.
 
 ## 4. Fix and Retry (max 3)
 

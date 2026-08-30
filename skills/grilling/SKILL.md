@@ -14,6 +14,6 @@ If a *fact* can be found by exploring the codebase, look it up rather than askin
 After decisions converge, list locked shared understanding (bullets only).
 Then ask: review that understanding for coherence/gaps? Wait for yes/no.
 If no: stop; wait for explicit confirm before enacting.
-If yes: raise **one** issue/gap per turn; include options when non-obvious; always give recommendation; wait for feedback before next issue.
+If yes: raise **one** issue/gap per turn **only if** the locked understanding might create undesired future impact; otherwise do not restate the agreed understanding. Include options when non-obvious; always give recommendation; wait for feedback before next issue.
 Amend understanding from feedback; continue one-at-a-time until issues exhausted or user stops.
 Do not enact until user confirms shared understanding after review (or declines review and confirms).
