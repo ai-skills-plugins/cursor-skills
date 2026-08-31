@@ -46,6 +46,7 @@ projects/*/*
 plans/
 projects/
 skills/agents-sdk/
+skills/agents-sdk/
 skills-cursor/canvas
 plugins/cache
 .sync-manifest.json
