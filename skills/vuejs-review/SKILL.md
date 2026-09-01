@@ -14,6 +14,7 @@ RULES:
 - Do not report global type declaratio.
 - From app/feature code, import submodule exports by package name (vipaginatedtable, vicommon, vue-iwform), not via `~/libraries/...` paths
 - Within a submodule's own source, use relative imports for siblings; package-name self-reference needs an `exports` map (absent in `vue-iwform`)
+- Sort `<script setup>` imports alphabetically by module path
 - Avoid wrapping HttpClient calls with `try...catch` blocks unless additional error handling is required, as HttpClient already handles error and success toasts.
 - Before suggesting to use computed, check if the reactive variable is subjected to change
 - Do not report standard practices in reviews (e.g., adding files to .gitignore, standard configuration changes that follow common conventions)
