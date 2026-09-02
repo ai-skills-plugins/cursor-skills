@@ -35,6 +35,7 @@ Execute the commands below in the repository root, then answer each step from re
 
 - **Run:** `git log origin/production..origin/staging --oneline`
 - **Summary:** List how many commits, highlight themes (features, fixes, refactors), and call out anything that **might be breaking** (major refactors, renames, removals, auth, billing, exports).
+- PR refs: render each as inline-code `#NNN` (backticks per ref), not plain #NNN; digits copied verbatim from the log's `(#…)`.
 
 ### Step 2 — Do a quick check on the modified code
 
