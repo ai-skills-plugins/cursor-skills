@@ -11,7 +11,7 @@ description: Turn customer-impacting commit logs into clear release notes
 - Entries state resulting state only; no operator actions, command invocations, or follow-up-task framing. Express migration/command dependencies as consequence, not as steps. `[M]`/`[C]`/`[B]` title prefixes still carry over verbatim.
 - Prefer user-visible outcomes over transport/status jargon: e.g. "rejected with a clear validation error" not `422`; avoid HTTP codes, exception names, DB columns, and payload keys unless the audience is explicitly technical.
 - Describe what the admin can do or will see; omit implementation detail that does not change how they use the product.
-- Use title case for readable headings when appropriate.
+- **Heading**: never use branch/PR slugs (kebab/`--`/path-like). If title is a slug, inaccurate, or vague → brief sentence of the actual change. Reuse hunk-accurate human titles; conventional-commit `type:`/`type(scope):` prefixes OK. Title-case phrase headings; sentence-case when the heading is a sentence.
 - Tone above applies to `Changes to be tested`; `Changes for internal consumption` may keep technical names.
 - Group entries by impact:
   - `Changes to be tested`: user-visible behavior, workflow, UI, API, validation, permission, data, integration, performance, reliability, or release-risk changes.
