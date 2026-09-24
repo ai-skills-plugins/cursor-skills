@@ -6,8 +6,11 @@ run /implement, then /v3-review fix per change. When all tests pass, git push an
 
 ## Commits
 
-- always commit single atomic checkpoint when there is more than one check point. NEVER commit multiple checkpoint into one commit.
-- Checkpoint = one route + Action + tests (same as `/implement`).
-- More than one checkpoint: auto-commit after each checkpoint's review+test gate, before the next checkpoint starts. `/implement` "NEVER git commit" does not apply.
-- One checkpoint: commit once before push (this command asked for PR).
-- Before push: if uncommitted/staged work covers more than one checkpoint, split into one commit per checkpoint. Do not squash, amend-together, or dump the dirty tree into one commit.
+- Checkpoint = the smallest independently reviewable/testable unit. Typical: one route + its Action(s) + its tests. Not a whole epic, feature area, or PR.
+- ONE checkpoint = ONE git commit. Hard 1:1. NEVER 2+ checkpoints in one commit.
+- NEVER combine multiple routes/Actions/tests in one commit, no matter how small or related.
+- No plan / non-route work: invent atomic checkpoints before coding. Independent surfaces get separate commits (examples: export command + ADR + its test; one controller/`actionPrivileges` map; generated artefact; glossary/docs submodule). A shared theme ("TypeScript export", "refactor privileges") is NOT one checkpoint.
+- "If only one checkpoint: commit once before push" means only when the dirty tree truly is a single unit. It NEVER means "one PR = one commit" or "batch the whole feature then commit once".
+- Multi-checkpoint flow: after each checkpoint passes review + targeted tests → commit that unit → only then start the next. `/implement` "NEVER git commit" does not apply under this command.
+- Pre-commit / pre-push gate (mandatory): if staged+unstaged changes span more than one checkpoint/surface (e.g. many `Ad*Ctrl` files + command + ADR + generated + docs), STOP. Split into one commit per checkpoint. NEVER squash, amend-together, or dump the dirty tree into one mega-commit.
+- Mega-commit ban: a commit that refactors/adds the same pattern across many controllers/classes plus infrastructure in one shot is a failure to invent checkpoints — rewrite history into per-unit commits before push/PR when still local; if already pushed, add a note in the PR and do not repeat.

@@ -31,7 +31,7 @@ description: Review only the master and submodule repo changes tracked by Git.
 - No refactor without approval; skip existing `review-*.md`; prefer minimal diffs.
 - Impact gating: no Critical/High for unverified/speculative; downgrade to Low or omit.
 - After writing review file: run related feature/unit tests for modified classes + static analysis; failures confirm findings / expose false positives.
-- Prompt `fix`: apply recommended fixes; `commit` in prompt → one commit per fix (next only after prior succeeds); subject `([Impact]) Title`; body `Location` / `Issue` / `Recommendation` as implemented.
+- Prompt `fix`: apply recommended fixes; one commit per fix (next only after prior succeeds); subject `([Impact]) Title`; body `Location` / `Issue` / `Recommendation` as implemented.
 - Scenario → related review bot (delegate; do not duplicate their specialty here):
   - Logic bugs / missing error handling / typos / unhandled edge cases → `/review-bugbot` (pre-push).
   - Auth/login, DB queries, new third-party deps, secrets, injection, broken authz → `/review-security` (optional threat-model prompt).
