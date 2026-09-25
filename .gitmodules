@@ -1,3 +1,3 @@
-[submodule "skills/vi-poteto-mode"]
-	path = skills/vi-poteto-mode
+[submodule "skills/poteto-mode"]
+	path = skills/poteto-mode
 	url = ssh://git@code.vilor.com/awesome-projects/vi-poteto-mode.git
