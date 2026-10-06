@@ -3,9 +3,9 @@ description: Turn customer-impacting commit logs into clear release notes
 ---
 
 - Precondition: probe first SHA with `git cat-file -e <sha>`. Unreachable → STOP; warn user to `cd` into matching repo (`git fetch` if needed).
-- Mandatory per entry: read full patch hunks (`git show <sha>`, submodules `git -C <path> show <sha>`) before classifying or describing. Never infer from title, commit/PR body prose, release-note summary, or `--stat`; heading and outcome sentence must match actual code hunks. Equal insertions/deletions in one file signals reorder/move, not new behavior - confirm in hunks.
+- Mandatory per entry: read full patch hunks (`git show <sha>`, submodules `git -C <path> show <sha>`) before classifying or describing. Never infer from title, commit/PR body prose, release-note summary, or `--stat`; heading and outcome sentence must match actual code hunks. Equal insertions/deletions in one file signals reorder/move, not new behavior — confirm in hunks.
 - Analyse supplied commit logs and produce grouped changelog notes.
-- Preserve original prefix, including brackets and parentheses.
+- Preserve only the commit prefix/flag (`feat:`/`fix:`/`update:`/`Feat:`/`add:`/`chore:` etc., and `[M]`/`[C]`/`[B]` when present). Do **not** keep the original title text — rewrite the heading in plain admin language from the hunks.
 - Trailing refs: one comma-separated parenthetical per bullet; each PR token its own inline-code (not the group); digits verbatim from log `(#…)`, no padding; SHAs bare/uncoded.
   - Host-repo PR / squash / `Merge pull request … (#N)` covering the rollup → `` `#NNN` `` only; omit covered branch-tip SHAs.
   - Submodule-only deliverable with `(#N)` in that submodule's commit/PR log → `` `<Alias>#NNN` `` (never bare host `` `#NNN` ``). Alias from `.gitmodules` path/remote: `app/libraries/customer-common`|`sysref-customer-common`→`customer-common`; `app/libraries/vue-iwform`|`vuejs-iwform`→`IwForm`; `app/libraries/vipaginatedtable`|`ViPaginatedTable`→`ViTable`; `app/libraries/common`|`sysref-common-library`→`common`; else short repo basename (strip `.git`). No `(#N)` → 7-8 hex SHA.
@@ -22,15 +22,55 @@ description: Turn customer-impacting commit logs into clear release notes
   - `Changes to be tested`: user-visible behavior, workflow, UI, API, validation, permission, data, integration, performance, reliability, or release-risk changes.
   - `Changes for internal consumption`: refactors, renames, moves, formatting, cleanup, documentation, tests, tooling, prompts, skills, config, dependency metadata, and other behavior-preserving changes.
 - Treat behavior-preserving code changes as internal consumption: renames, namespace moves, extraction, consolidation, dead-code removal, restructuring, integration/service rerouting behind stable contracts; `Changes to be tested` only when identical inputs yield different HTTP/JSON, validation, permissions, or substantive side effects.
-- Extend the same test to schema/data-layer changes: storage-representation changes invisible at the API boundary are `Changes for internal consumption`, migration and backfill included - column type, primary-key strategy, generated-value scheme, storage format. `Changes to be tested` only when the change surfaces in HTTP/JSON, validation, or a customer-facing business identifier.
+- Extend the same test to schema/data-layer changes: storage-representation changes invisible at the API boundary are `Changes for internal consumption`, migration and backfill included — column type, primary-key strategy, generated-value scheme, storage format. `Changes to be tested` only when the change surfaces in HTTP/JSON, validation, or a customer-facing business identifier.
 - Do not claim customer impact when the commit only changes maintainability, organization, naming, or developer workflow.
 - Composer/lockfile edits: default to normal dependency/release rubric; `Changes for internal consumption` only when the diff strictly root-declares or reinstalls packages previously satisfied only transitively (graph hygiene, same effective library) with no deliberate semver move, substitution, or advisory response evident from message/diff.
 - Merge related commits into one concise entry when they share the same user-facing or internal outcome; when outcomes stay distinct, cluster related bullets adjacent within the section (same feature/area/surface).
 - One shared `#NNN` or one MR scope → one changelog bullet; anchor text from `Merge pull request … (#…)` / squash-merge head carrying that ref; skip sibling branch commits on that MR unless they add an uncovered deliverable.
 - Omit changelog rows for branch-sync-only merges (`Merge branch …`, `Merge remote-tracking branch …`, `Merge remote-tracking branch 'origin/production' …`, same-repo staging/production propagation) with no exclusive deliverable; **do not list under any section** (including internal) and **do not** add a compensatory bullet that only names that merge or its tip SHA to “explain” the sync. `Merge pull request … (#…)` is not branch-sync; never duplicate the same PR ref as both that anchor and a branch-tip title.
-- Keep each entry scannable: ``- **Heading**: Outcome sentence. (`#NNN`, `Alias#NNN`, <sha>) (- Author Name)``
-- Expand to sub-bullets when one MR scope carries >=5 distinct user-visible outcomes (separate endpoints, validation families, permission or response-shape changes) or when the outcome would run past ~4 sentences; shape: `- **Heading**: One-line scope sentence. (references) (- Author Name)` then one indented sub-bullet per outcome, one sentence each, verb-first.
-  - References and author stay on the lead line only; sub-bullets carry no `#NNN`/`Alias#NNN`/SHA/author and never promote one MR scope into multiple top-level bullets.
-  - Sub-bullets obey the same rules as entries: hunk-derived, resulting state only, no operator actions or command invocations.
-  - Under either threshold → keep prose; never pad an entry into a list.
 - Omit empty sections.
+- Entry shape: ``- **Heading**: Outcome sentence. (`#NNN`, `Alias#NNN`, <sha>) (- Author Name)``
+- Expand to sub-bullets when one MR scope carries >=5 distinct user-visible outcomes (separate screens/forms, validation families, permission or response-shape changes) or when the outcome would run past ~4 sentences; shape: `- **Heading**: One-line scope sentence. (references) (- Author Name)` then one indented sub-bullet per outcome, one sentence each, verb-first.
+  - References and author stay on the lead line only; sub-bullets carry no `#NNN`/`Alias#NNN`/SHA/author and never promote one MR scope into multiple top-level bullets.
+  - Under either threshold → keep prose; never pad an entry into a list.
+  - Breaking / behaviour-change only: optional sub-bullet `**What to watch for:** …`
+- **Heading** (`Changes to be tested`): keep only the prefix/flag; rewrite the rest as a short plain-language phrase of the user-facing change (not the commit subject). Never use branch/PR slugs (kebab/`--`/path-like), file/API/type names, or storage/tech terms. Title-case phrase headings; sentence-case when the heading is a sentence.
+- **Heading** (`Changes for internal consumption`): prefix/flag + concise technical heading OK.
+- Entries state resulting state only; no operator actions, command invocations, or follow-up-task framing. Express deploy/command dependencies as consequence, not as steps.
+- `Changes for internal consumption` may keep technical names.
+- `Changes to be tested` rewrite rules (heading **and** body):
+  - Audience: org admins / support — not developers. Write as if explaining the product change to someone who never sees code.
+  - Lead with user-facing outcome, not implementation.
+  - Admin verbs: create, edit, hide, approve, download, notify, restrict, allow.
+  - Short sentences; one top-level bullet per item; nest sub-bullets only when needed (thresholds above).
+  - Replace jargon; no parenthetical jargon definitions.
+  - Drop internal names unless shown in UI (screen, button, menu, field labels OK).
+  - No browser/storage/framework terms (sessionStorage, localStorage, seed, sync, composable, payload, type_id, enum, submodule, etc.).
+  - Do not invent features; unclear → **Assumptions** one line or one clarifying question.
+  - Factual tone; no hype.
+  - Preserve severity: bug fix vs new capability vs breaking change.
+  - UK English; ASCII punctuation.
+  - Sub-bullets: hunk-derived, resulting state only, no operator actions or command invocations.
+- Jargon map (`Changes to be tested` heading and body):
+  - endpoint / route / API → screen, form, or when you save / submit
+  - payload / DTO / validation → the details you enter
+  - migration / schema → omit; UI/data effect only
+  - privilege / policy / gate → permission / who can see or edit
+  - org_id / tenant → your organisation
+  - null / empty string → blank
+  - race condition / concurrency → two people updating at the same time
+  - cache invalidation → the list refreshes with the latest data
+  - webhook → automatic update sent to another system
+  - soft delete → archived / removed, not permanently erased
+  - idempotent → same action twice, same result
+  - regression → problem returned after a prior fix
+  - sessionStorage / localStorage / cookie / tab storage → this browser tab / remembered for next time you open the admin
+  - seed / reseed / hydrate → start with / pick up again from
+  - live sync / storage listener / cross-tab sync → other open tabs update at the same time
+  - type_id / enum / config key / DTO field → omit; describe the screen values that appear
+  - client-side / merge form data / API response → the list or card shows what you just saved
+  - HTTP codes, exception names, DB columns, payload keys, library/package names → omit unless audience is explicitly technical
+- Quality gate (`Changes to be tested`):
+  - Click path or visible change obvious without engineering?
+  - No developer-only terms left in heading or body (including storage, seed, sync, type names)?
+  - Answers "so what?"?
