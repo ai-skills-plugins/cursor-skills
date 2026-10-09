@@ -24,6 +24,7 @@ description: Review only the master and submodule repo changes tracked by Git.
   - Performance: cite concrete query/op pattern.
   - Existing tests/static analysis/tooling coverage: record as coverage, not defect.
 - Review dimensions: standards; naming precision; security (mass assignment, XSS, SQLi, auth/policy, leakage); architecture/logic (SOLID/SRP, race/null paths, inefficiency); smell baseline (Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest) — repo docs override.
+- Feature-test low-signal (when diff touches `tests/Feature` / Pest `it()`): enforce `docs/ADR/feature-testing.md` Low-signal ban + `AGENTS.md` Tests; flag as Medium (drop or fold) — omit-keeps after ignore-body/identity freeze; second verb/entry for same helper/gate; missing-id 404 when peer/other-org already smokes scoped load; same privilege map cloned across CRUD verbs; cross-file topic duplicates; subset happy path of fuller sibling; null/empty or model field-echo; default sort/pagination.
 - Evidence: every issue needs call path/call site/query/scenario.
 - Output: `./ai-agent/reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md`; `../` path prefix in links.
 - Finding format: `### [Index]. **([Impact]) Title`** / `**Location**: [fileName#L<LineNumberRange>](../../filePath#L<starting-line-num>)` / `**Issue**` / `**Recommendation**` / `**Impact**: Critical|High|Medium|Low`; `starting-line-num` = first line of issue range.

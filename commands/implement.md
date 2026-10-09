@@ -18,6 +18,8 @@ description: Implement a solution from an implementation plan, then review, test
 ## 1. Implement
 
 - Input: latest plan (`ai-agent/implementations/*.md` or provided) + optional checkpoint id/title.
+- Before coding: scan scope for similar existing fns/helpers that could absorb the change via refactor (vs new parallel code).
+- If refactor fits: draft short pseudocode of the refactor; ask user approve/deny before writing code. Do not implement until answered.
 - Strict that checkpoint's scope + project conventions only.
 - Checkpoint = one atomic feature unit (route + Action + tests); no cross-checkpoint bundling.
 - Prefer extend existing tests; avoid new files/duplicate setup for same surface.
