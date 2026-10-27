@@ -8,5 +8,10 @@ description: Refine user prompt and generate an implementation plan saved to ai-
 - When implementation begins, break the work into small checkpoints. Each checkpoint must contain exactly one single complete feature. A complete feature implies exactly **one action goal** (the API route, its Action class, and its test(s)) per the `docs/architecture.md` Git commit discipline for Atomic commits. Do not combine multiple unrelated actions into one checkpoint. Each complete feature must definitively include tests when applicable. Strictly follow this rule.
 - Stop and wait for user evaluation once a checkpoint or step is completed. NEVER commit the changes yourself using git commit. Let the user manually commit the changes for each atomic step.
 - Save the finalized implementation plan under `ai-agent/implementations/` with a descriptive filename (e.g. `{{date}}{{plan_name}}.md`). Do not use a top-level `implementations/` folder.
+- When creating a new plan, put these two headings at the very top of the file (before the title/body). Fill `Created` with the current timestamp. Leave `Completed Checkpoint` as `—` until a checkpoint is finished, then replace `X` with the checkpoint number and the timestamp of completion:
+  ```
+  Created: YYYY-DD-MM HH:mm
+  Completed Checkpoint: X, YYYY-DD-MM HH:mm
+  ```
 - DO NOT update the `task.md`
 - DO NOT PROCEED to change the code

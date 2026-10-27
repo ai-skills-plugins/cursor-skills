@@ -1,12 +1,12 @@
 ---
 name: merge-request-write-desc
-description: Generate a concise merge request description from staged changes. Use when drafting an MR/PR description, summarizing branch changes vs. base, or when the user says create pr / pr (creates the PR via forgejo-cli).
+description: Generate a concise merge request description from staged changes. Use when drafting an MR/PR description, summarizing branch changes vs. base, or when the user says create pr / pr (creates the PR via yp-forgejo MCP).
 disable-model-invocation: true
 ---
 
 ## Output
 
-- Prompt contains `pr` (case-insensitive): **do not** write an MR markdown file; pass body inline to `fj pr create` via `--body`
+- Prompt contains `pr` (case-insensitive): **do not** write an MR markdown file; pass body inline to yp-forgejo `create_pull_request`
 - Otherwise: save to `./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<current-branch-name>.md`
 
 ## Workflow
@@ -19,11 +19,14 @@ disable-model-invocation: true
 - **Create PR** only if prompt contains `create pr` or `pr` (case-insensitive):
   - Title = **Git commit title** value
   - Push branch first
-  - Repo root: `fj pr create "<title>" --body-file "./ai-agent/merge-requests/<YYYYMMDD>-<HHmmss>-<current-branch-name>.md"`; append `--base v3` when current branch ≠ `v3`
-  - On failure: report stderr; no blind retry
-  - On success: parse PR number from stdout (`#<number>`); build URL from the Forgejo remote (usually `origin` via `git remote get-url`):
-    - SSH `git@<host>:<owner>/<repo>.git` → `https://<host>/<owner>/<repo>/pulls/<number>`
-    - HTTPS `https://<host>/<owner>/<repo>.git` → `https://<host>/<owner>/<repo>/pulls/<number>`
+  - Resolve `owner` / `repo` from Forgejo remote (usually `origin` via `git remote get-url`):
+    - SSH `git@<host>:<owner>/<repo>.git`
+    - HTTPS `https://<host>/<owner>/<repo>.git`
+  - Call MCP `user-yp-forgejo` → `create_pull_request` with:
+    - `owner`, `repo`, `title`, `head` = current branch, `body` = full MR markdown
+    - `base` = `v3` when current branch ≠ `v3`; otherwise the repo’s default merge base / upstream target used for the diff
+  - On failure: report tool error; no blind retry
+  - On success: use returned `html_url` (or build `https://<host>/<owner>/<repo>/pulls/<number>` from remote + PR number)
   - Final output: include the full PR URL (e.g. `https://code.vilor.com/owner/repo/pulls/631`), not just the number
 - **No PR:** save to output path after writing sections
 
