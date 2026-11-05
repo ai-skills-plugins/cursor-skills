@@ -25,6 +25,7 @@ description: Implement a solution from an implementation plan, then review, test
 - Prefer extend existing tests; avoid new files/duplicate setup for same surface.
 - Commits:
   - Prefer commit over no commit unless the change is very simple (typo, one-liner, trivial config).
+  - Structural prep first, separate commit, before feature work (e.g. Request→ServiceAction, rename, move, extract/split). Litmus: could land alone, tests green, no new product behavior → separate commit. Do not mix with new behavior.
   - No checkpoints in plan: invent atomic commit units yourself when justified (independent features/fixes/surfaces); one commit per unit after its review+test gate. Skip inventing units only for very simple changes.
   - Single checkpoint: do not commit unless user explicitly asked.
   - Multiple checkpoints: auto-commit after each checkpoint passes its review+test gate, before the next checkpoint starts. NEVER commit multiple checkpoints into one commit.

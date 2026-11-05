@@ -3,20 +3,32 @@ name: grilling
 description: Grill the user relentlessly about a plan or design. Use when the user wants to stress-test a plan before building, or uses any 'grill' trigger phrases.
 ---
 
-Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
+- Cover every design-branch decision; settle blocking dependencies before dependents.
+- Codebase-discoverable facts: look up; do not ask. Decisions stay the user's: pose and wait.
+- Pre-grill: decide simple items; batch-list each as `decision — one-line rationale`; wait for confirm. Confirm → complex grill. Do not interleave simple confirms with complex questions. Rejected batch item → open question.
+- Pre-grill soundness (Grok 4.7 High Fast): before presenting the batch, validate decisions with that model. Disagreement → fine-tune and reconfirm until agree. Max 3 attempts. No agreement on which is best → log disagreement; ask user which to take.
+- Open question (one complex-grill question or one post-lock gap per turn), order:
+  - Recommended solution: concrete proposal acceptance would lock.
+  - Reasons selected: why it wins (bullets). This is the discussion.
+  - Alternatives record: `option — why not selected` for each credible alternative; keep in this turn. No peer write-up, example, or extra question. Omit only when none exist; do not invent.
+  - Define uncommon term only when the choice depends on it.
+  - Wait for accept, override, or edit.
+- Open-question soundness: same Grok 4.7 High Fast loop as pre-grill (validate → fine-tune on disagree → max 3 → else log and ask user) before presenting recommendation + alternatives.
+- Lock accepted recommendation or user override. Alternative records stay on the question turn. Locked-understanding list = accepted decisions only.
+- On convergence: locked shared understanding, bullets only.
+- Ask to review that understanding for coherence/gaps. Wait yes/no.
+- Review declined: stop gap-raising; ask explicit confirm before enacting.
+- Review accepted: one issue per turn only if the lock may cause undesired future impact. Same open-question presentation. Do not restate the locked understanding. Amend lock from feedback. Continue until issues exhausted or user stops.
+- Reprint lock list at final confirm. Enact only after user confirms shared understanding (post-review confirm, or review declined plus explicit confirm).
 
-Ask the questions one at a time, waiting for feedback on each question before continuing. Asking multiple questions at once is bewildering.
+## Open-question format (locked)
 
-Pre-grill gate: decide simple/straightforward items yourself; batch-list for confirmation. On confirm → proceed to complex one-at-a-time grill. Do not interleave simple confirms with complex questions.
-
-For less common terms, explain them. For complex options, elaborate enough that the trade-offs are clear before I choose. Each option includes a minimal example.
-When presenting options: state the recommended option first and why it is best, then the other options.
-
-If a *fact* can be found by exploring the codebase, look it up rather than asking me. The *decisions*, though, are mine — put each one to me and wait for my answer.
-
-After decisions converge, list locked shared understanding (bullets only).
-Then ask: review that understanding for coherence/gaps? Wait for yes/no.
-If no: stop; wait for explicit confirm before enacting.
-If yes: raise **one** issue/gap per turn **only if** the locked understanding might create undesired future impact; otherwise do not restate the agreed understanding. Include options when non-obvious; always give recommendation first (recommended option + why best, then alternatives); wait for feedback before next issue.
-Amend understanding from feedback; continue one-at-a-time until issues exhausted or user stops.
-Do not enact until user confirms shared understanding after review (or declines review and confirms).
+- Recommended: proposal → reasons-selected bullets → `option — why not selected` record → wait.
+- Why selected: recommendation + explicit why on the decision turn; alternatives retained as same-turn record (not a second question); override uses recorded options; same shape for grill and post-lock gaps; reason bullets carry trade-offs so alternatives stay one line; pre-grill stays confirm batch (full format only on promote-on-reject).
+- Alternatives record:
+  - Equal-weight menu with per-option trade-offs/examples — rejected: competes with recommendation; crowds one-question turn.
+  - Recommendation + reasons only; drop alternatives — rejected: record lost; override needs re-generation.
+  - Recommendation now; alternatives only after reject — rejected: record absent from decision turn; options can drift.
+  - Two turns (discuss then log alternatives) — rejected: one decision spans two turns; confirm possible before record exists.
+  - Full open-question format on every pre-grill item — rejected: collapses pre-grill gate; promote-on-reject covers contest.
+  - Prose discussion + bare alternative names — rejected: reasons must be listed; names without why-not are not a selection record.

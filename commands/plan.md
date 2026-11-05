@@ -2,16 +2,18 @@
 description: Refine user prompt and generate an implementation plan saved to ai-agent/implementations.
 ---
 
-- investigate the user request to understand the current state and requirements.
-- **MANDATORY FIRST:** Ask clarifying questions to refine the prompt whenever any details or scenario context are missing or ambiguous. Ask **one question at a time**; wait for the user's answer before asking the next. Present each clarification request as **single-select radio options** (exactly one choice) whenever possible, with an additional `Other` option for custom input when needed.
-- Only proceed to create the implementation plan after **all** critical clarifications are resolved and the user has selected or provided answers for them. Then create the plan using the standard `implementation_plan.md` artifact.
-- When implementation begins, break the work into small checkpoints. Each checkpoint must contain exactly one single complete feature. A complete feature implies exactly **one action goal** (the API route, its Action class, and its test(s)) per the `docs/architecture.md` Git commit discipline for Atomic commits. Do not combine multiple unrelated actions into one checkpoint. Each complete feature must definitively include tests when applicable. Strictly follow this rule.
-- Stop and wait for user evaluation once a checkpoint or step is completed. NEVER commit the changes yourself using git commit. Let the user manually commit the changes for each atomic step.
-- Save the finalized implementation plan under `ai-agent/implementations/` with a descriptive filename (e.g. `{{date}}{{plan_name}}.md`). Do not use a top-level `implementations/` folder.
-- When creating a new plan, put these two headings at the very top of the file (before the title/body). Fill `Created` with the current timestamp. Leave `Completed Checkpoint` as `—` until a checkpoint is finished, then replace `X` with the checkpoint number and the timestamp of completion:
+- Investigate request: current state + requirements.
+- **MANDATORY FIRST:** Clarify missing/ambiguous details. One question at a time; wait for answer. Prefer single-select radio options + `Other`.
+- Create plan only after all critical clarifications resolved. Use standard `implementation_plan.md` artifact.
+- Checkpoints: one complete feature each = one action goal (route + Action + tests) per `docs/architecture.md` atomic-commit discipline. No unrelated actions in one checkpoint. Include tests when applicable.
+- Structural prep as its own checkpoint/commit before feature work (e.g. Request→ServiceAction, rename, move, extract/split). Litmus: could land alone, tests green, no new product behavior → separate commit. Do not mix with new behavior.
+- After each approved checkpoint: commit that atomic step, then continue. Stop and wait for user evaluation between checkpoints.
+- Save under `ai-agent/implementations/` with descriptive name (`{{date}}{{plan_name}}.md`). No top-level `implementations/`.
+- New plan file top headers (before title/body):
   ```
   Created: YYYY-DD-MM HH:mm
   Completed Checkpoint: X, YYYY-DD-MM HH:mm
   ```
-- DO NOT update the `task.md`
-- DO NOT PROCEED to change the code
+  Fill `Created` now; leave `Completed Checkpoint` as `—` until done, then set `X` + completion timestamp.
+- DO NOT update `task.md`.
+- DO NOT change code.
