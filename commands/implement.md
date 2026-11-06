@@ -1,5 +1,5 @@
 ---
-description: Implement a solution from an implementation plan, then review, test, and fix up to 3 times on failure.
+description: Implement a solution from an implementation plan, then review, test, run laravel-php-quality-gate after Laravel/PHP changes, and fix up to 3 times on failure.
 ---
 
 # Implement, Review, Test, and Validate
@@ -40,12 +40,21 @@ description: Implement a solution from an implementation plan, then review, test
 
 - Targeted first: filter to checkpoint's test class/name (`php artisan test --filter=…`, `pest -f`, `bun test` path, `vitest` path).
 - Full project suite only after targeted green, or when no filter exists / user requires suite.
-- All pass → stop; wait for user verify (single checkpoint / very simple). Otherwise auto-commit per the Commits rule above (invented units or multiple checkpoints), then continue the next unit/checkpoint if any. Failure → step 4.
+- Failure → step 4.
+- All targeted pass + checkpoint changed Laravel/PHP → step 3b before any feature commit / next checkpoint.
+- All pass and no Laravel/PHP in this checkpoint → stop; wait for user verify (single checkpoint / very simple). Otherwise auto-commit per the Commits rule above (invented units or multiple checkpoints), then continue the next unit/checkpoint if any.
+
+## 3b. Laravel PHP quality gate
+
+- When this checkpoint changed Laravel/PHP files: read and follow skill `laravel-php-quality-gate` (prefer `.cursor/skills/laravel-php-quality-gate/SKILL.md`, else `~/.cursor/skills/laravel-php-quality-gate/SKILL.md`).
+- Gate order: `php artisan test` && `composer phpstan` && `composer pint`. On fail: fix and commit one at a time per that skill.
+- Feature/checkpoint commit (Commits rule) only after the gate is green. Gate-fix commits from the skill stay separate and land before the feature commit when both exist.
+- After green gate: wait for user verify (single checkpoint / very simple), else auto-commit per Commits rule, then next unit/checkpoint if any.
 
 ## 4. Fix and Retry (max 3)
 
-- Root-cause from failure messages/logs only → minimal fix → re-run targeted tests.
-- Cap 3 attempts per checkpoint.
+- Root-cause from failure messages/logs only → minimal fix → re-run targeted tests; if Laravel/PHP changed, re-enter step 3b after targeted green.
+- Cap 3 attempts per checkpoint (quality-gate skill has its own 3-attempt cap per gate error).
 - After 3 failures: stop; report scope done, remaining failures (last errors), fixes tried, next steps. No success claim.
 
 ## Constraints
@@ -53,7 +62,7 @@ description: Implement a solution from an implementation plan, then review, test
 - No scope creep; minimal failure fixes.
 - Use project standard test command family; no skip/substitute.
 - Omit trivial/skippable issues from user report.
-- Return contract: files changed, test command + result, blockers only. No narrative dump.
+- Return contract: files changed, test + quality-gate commands/results, blockers only. No narrative dump.
 
 ## Execution venue
 
