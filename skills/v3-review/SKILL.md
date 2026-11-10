@@ -27,10 +27,10 @@ description: Review only the master and submodule repo changes tracked by Git.
 - Feature-test low-signal (when diff touches `tests/Feature` / Pest `it()`): enforce `docs/ADR/feature-testing.md` Low-signal ban + `AGENTS.md` Tests; flag as Medium (drop or fold) — omit-keeps after ignore-body/identity freeze; second verb/entry for same helper/gate; missing-id 404 when peer/other-org already smokes scoped load; same privilege map cloned across CRUD verbs; cross-file topic duplicates; subset happy path of fuller sibling; null/empty or model field-echo; default sort/pagination.
 - Evidence: every issue needs call path/call site/query/scenario.
 - Output: `./ai-agent/reviews/review-<YYYYMMDD>-<HHmmss>-<snake_cased_title>.md`; `../` path prefix in links.
-- Finding format: `### [Index]. **([Impact]) Title`** / `**Location**: [fileName#L<LineNumberRange>](../../filePath#L<starting-line-num>)` / `**Issue**` / `**Recommendation**` / `**Impact**: Critical|High|Medium|Low`; `starting-line-num` = first line of issue range.
+- Finding format: `### [Index]. **([Impact]) Title`** / `**Location**: [fileName#L<LineNumberRange>](../../filePath#L<starting-line-num>)` / `**Issue**` / `**Recommendation**` / `**Impact**: Critical|High|Medium`; `starting-line-num` = first line of issue range.
 - End after last finding; no summary; collapse repeated patterns.
 - No refactor without approval; skip existing `review-*.md`; prefer minimal diffs.
-- Impact gating: no Critical/High for unverified/speculative; downgrade to Low or omit.
+- Impact gating: no Critical/High for unverified/speculative; omit Low findings entirely (do not report).
 - After writing review file: run related feature/unit tests for modified classes + static analysis; failures confirm findings / expose false positives.
 - Prompt `fix`: apply recommended fixes; one commit per fix (next only after prior succeeds); subject `([Impact]) Title`; body `Location` / `Issue` / `Recommendation` as implemented.
 - Scenario → related review bot (delegate; do not duplicate their specialty here):
