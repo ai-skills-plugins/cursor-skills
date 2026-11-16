@@ -1,0 +1,16 @@
+{
+  "name": "market-skills",
+  "owner": {
+    "name": "Ken Ng"
+  },
+  "metadata": {
+    "description": "Personal Cursor skills marketplace"
+  },
+  "plugins": [
+    {
+      "name": "market-skills",
+      "source": "./",
+      "description": "Personal agent skills"
+    }
+  ]
+}

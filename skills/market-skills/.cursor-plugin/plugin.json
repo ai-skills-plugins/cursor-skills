@@ -1,0 +1,10 @@
+{
+  "name": "market-skills",
+  "displayName": "Market Skills",
+  "version": "1.0.0",
+  "description": "Personal Cursor agent skills",
+  "author": {
+    "name": "Ken Ng"
+  },
+  "skills": "./skills/"
+}
