@@ -4,13 +4,13 @@
     "name": "Ken Ng"
   },
   "metadata": {
-    "description": "Personal Cursor skills marketplace"
+    "description": "Cursor skills and commands marketplace"
   },
   "plugins": [
     {
       "name": "market-skills",
       "source": "./",
-      "description": "Personal agent skills"
+      "description": "agent skills and commands"
     }
   ]
 }
