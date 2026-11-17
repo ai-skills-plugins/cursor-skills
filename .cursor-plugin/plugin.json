@@ -1,0 +1,10 @@
+{
+  "name": "cursor-skills",
+  "displayName": "Cursor Skills",
+  "version": "1.0.0",
+  "description": "Team agent skills and commands",
+  "author": { "name": "ai-skills-plugins" },
+  "skills": "./skills/",
+  "commands": "./commands/",
+  "agents": "./agents/"
+}
