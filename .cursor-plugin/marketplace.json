@@ -1,5 +1,5 @@
 {
-  "name": "market-skills",
+  "name": "cursor-skills",
   "owner": {
     "name": "Ken Ng"
   },
@@ -9,8 +9,13 @@
   "plugins": [
     {
       "name": "market-skills",
-      "source": "./",
+      "source": "skills/market-skills",
       "description": "agent skills and commands"
+    },
+    {
+      "name": "pstack",
+      "source": "plugins/local/pstack",
+      "description": "rigorous agent workflows (local fork)"
     }
   ]
 }
