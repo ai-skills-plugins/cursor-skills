@@ -1,35 +1,74 @@
 ---
-description: Rewrite Skill/Command content into high-density operational bullets only; omit examples, deducible logic, and fluff.
+name: high-density-rewrite
+description: >
+  Rewrite Skill/Command docs for agent execution: caveman density, operational
+  bullets only, zero human prose. Use when user says "rewrite for skill",
+  "remove fluff", "summarize for skills", "high-density rewrite", or attaches
+  doc to compress into SKILL.md / command form.
 ---
 
-## Role
+Rewrite source into agent-ready Skill/Command. Human prose die. Agent ops stay.
 
-- Act as Technical Documentation Specialist for Skill/Command maintenance.
+## Audience
 
-## Constraints
+Output = machine instruction for agent. Not tutorial. Not blog. Not onboarding.
 
-- Core logic only: keep essential, non-obvious operational steps/syntax.
-- No examples: omit "for example", "e.g.", sample snippets, illustrative walkthroughs.
-- No deducible content: remove definitions, common-sense guidance, obvious best practices.
-- Format: dense bullets only; no intro/outro filler; no narrative transitions.
-- Objective: maximize information density, minimize token count.
+Agent need: when fire, what do, what never, what decide, what emit.
+Agent skip: why-care stories, motivation, soft best-practice, cheerleading.
 
-## Execution Rules
+## Caveman Voice (output)
 
-- Compress verbose paragraphs into terse, action-oriented bullets.
-- Prefer direct command/action phrasing over explanatory prose.
-- Preserve domain-critical constraints, edge-condition handling, and decision points.
-- Drop guidance that does not change execution quality or correctness.
-- Keep structure flat and scannable; avoid redundant grouping.
+Match `/caveman` density on rewritten body:
 
-## Trigger Variants
+- Drop: articles, filler (just/really/basically/actually/simply), pleasantries, hedging.
+- Fragments OK. Short synonyms. Abbreviate common terms (DB/auth/config/req/res/fn/impl).
+- Strip conjunctions. Causality via arrows (`X -> Y`). One word when one word enough.
+- Pattern: `[thing] [action] [reason]. [next step].`
+- Technical terms exact. Code/syntax exact. Errors quoted exact.
 
-- "Review attached document and rewrite for Skill file."
-- "Remove fluff, deducible logic, and examples."
-- "Summarize for my skills."
+## Keep
+
+- Non-obvious ops steps, syntax, flags, paths, tool names
+- Hard constraints, refuse/allow boundaries, edge cases
+- Decision points + branch outcomes
+- Persistence / when-on / when-off rules
+- Output contract (shape, forbidden extras)
+- Trigger phrases that load skill/command
+- Auto-exceptions where terse form risks misread (security, irreversible, ordered sequences)
+
+## Drop
+
+- Examples / "e.g." / walkthroughs / sample dialogues (unless rule inexpressible without one tiny pattern line)
+- Definitions agent already know
+- Deducible common sense
+- Intro/outro, transitions, restated goals
+- Motivation, persuasion, "why this matters"
+- Redundant section wrappers that add no ops signal
+
+## Compress Moves
+
+- Verbose paragraph -> terse action bullets
+- Soft advice -> imperative constraint or delete
+- Nested essay -> flat bullets / short headings
+- Duplicate rules -> one bullet
+- Narrative "if you want X you should Y" -> `Want X -> do Y`
+
+## Structure Target
+
+Prefer caveman-shaped Skill/Command skeleton when source allows:
+
+1. Frontmatter `description` — what + when (triggers)
+2. One-line mission (caveman)
+3. Persistence / scope (if stateful mode)
+4. Rules — keep/drop/do
+5. Decision / exception gates
+6. Output contract
+
+No filler headings. No "Role" theater. Flat, scannable.
 
 ## Output Contract
 
-- Return only rewritten dense bullets.
-- No sample code blocks unless logic is otherwise inexpressible.
-- No restatement of instructions or methodology.
+- Emit only rewritten dense markdown (frontmatter if Skill/Command).
+- No methodology restatement. No "here is the rewrite".
+- No sample code blocks unless logic otherwise inexpressible.
+- Preserve domain-critical correctness; density never drop required constraint.
