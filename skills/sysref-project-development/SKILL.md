@@ -1,8 +1,8 @@
 ---
 name: sysref-project-development
 description: Local end-to-end development and validation for the sysref project.
+disable-model-invocation: true
 ---
-
 # Sysref Project Development
 
 ## Local environment URLs

@@ -1,8 +1,8 @@
 ---
 name: code
 description: Karpathy-Inspired Claude Code Guidelines. See https://github.com/multica-ai/andrej-karpathy-skills
+disable-model-invocation: true
 ---
-
 Merge with project-specific instructions. Trivial tasks: use judgment.
 
 ## Think before coding

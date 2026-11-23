@@ -1,8 +1,8 @@
 ---
 name: api-flow-for-frontend-developer
 description: Reverse engineer backend commits into frontend implementation tasks by inferring API signatures, validation rules, error handling, and integration steps. Use when the user shares a backend git commit diff, commit hash, or backend change summary and asks for a frontend technical task/spec.
+disable-model-invocation: true
 ---
-
 # Commit to Task
 
 ## Purpose

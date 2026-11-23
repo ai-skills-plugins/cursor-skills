@@ -4,8 +4,8 @@ description: >-
   Find and delete remote git branches ending in -review whose tip commit is
   older than 2 months. Use when the user asks to prune stale review branches,
   clean up remote -review branches, or run delete-stale-review-branches.
+disable-model-invocation: true
 ---
-
 # Delete stale remote `-review` branches
 
 ## Defaults

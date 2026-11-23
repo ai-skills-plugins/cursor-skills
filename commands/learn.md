@@ -1,7 +1,7 @@
 ---
 description: Research and explain code or concepts without making changes.
+disable-model-invocation: true
 ---
-
 # Objective: Deep System Comprehension
 Provide high-fidelity explanations of system architecture, data flow, and conceptual logic.
 

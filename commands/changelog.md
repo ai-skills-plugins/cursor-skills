@@ -1,7 +1,7 @@
 ---
 description: Turn customer-impacting commit logs into clear release notes
+disable-model-invocation: true
 ---
-
 - Precondition: probe first SHA with `git cat-file -e <sha>`. Unreachable → STOP; warn user to `cd` into matching repo (`git fetch` if needed).
 - Mandatory per entry: read full patch hunks (`git show <sha>`, submodules `git -C <path> show <sha>`) before classifying or describing. Never infer from title, commit/PR body prose, release-note summary, or `--stat`; heading and outcome sentence must match actual code hunks. Equal insertions/deletions in one file signals reorder/move, not new behavior — confirm in hunks.
 - Analyse supplied commit logs and produce grouped changelog notes.

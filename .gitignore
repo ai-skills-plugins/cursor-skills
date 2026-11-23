@@ -62,6 +62,7 @@ skills/web-perf/
 skills/workers-best-practices/
 skills/wrangler/
 skills-cursor
+delete/
 pstack-models.mdc
 # Marketplace manifest (Import Marketplace)
 !.cursor-plugin/

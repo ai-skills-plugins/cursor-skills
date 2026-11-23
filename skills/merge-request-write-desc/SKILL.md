@@ -27,7 +27,11 @@ disable-model-invocation: true
     - `base` = `v3` when current branch ≠ `v3`; otherwise the repo’s default merge base / upstream target used for the diff
   - On failure: report tool error; no blind retry
   - On success: use returned `html_url` (or build `https://<host>/<owner>/<repo>/pulls/<number>` from remote + PR number)
-  - Final output: include the full PR URL (e.g. `https://code.vilor.com/owner/repo/pulls/631`), not just the number
+  - **PR URL (non-negotiable):**
+    - Final reply MUST open with the full absolute PR URL on its own first line (e.g. `https://code.vilor.com/owner/repo/pulls/631`).
+    - Ban: `#631`, `PR 631`, `pulls/631` alone, Forgejo API `url`, or "PR created" without the `html_url`.
+    - Every later turn in the same run that mentions that PR (landed, stop, resume, Attention) MUST restate the same full URL — number-only is a failure.
+    - Brief-answer / "don't repeat" rules do not override this.
 - **No PR:** save to output path after writing sections
 
 ## MR Description Sections

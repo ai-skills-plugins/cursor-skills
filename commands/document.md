@@ -1,7 +1,7 @@
 ---
 description: Add or improve documentation across the codebase.
+disable-model-invocation: true
 ---
-
 # Objective: Knowledge Retention
 Enhance system maintainability by capturing the *intent* and *logic* behind the code.
 

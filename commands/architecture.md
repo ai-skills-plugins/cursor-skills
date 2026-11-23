@@ -1,7 +1,7 @@
 ---
 description: Analyze this repository's architecture, file structure, and coding conventions; generate then simplify architecture.md for future agents.
+disable-model-invocation: true
 ---
-
 # Objective: Create and Simplify architecture.md
 
 Analyze the repository, produce an `architecture.md` that future agents can follow strictly, then review and trim it so only essential information remains (to reduce context size).

@@ -1,7 +1,7 @@
 ---
 description: Pre-release checklist for Laravel changes between production and staging. Runs git log/diff on origin/production..origin/staging and summarizes commits, risky areas, model/API surface, and env/config.
+disable-model-invocation: true
 ---
-
 ## Scope
 
 Compare **staging** against **production** using:

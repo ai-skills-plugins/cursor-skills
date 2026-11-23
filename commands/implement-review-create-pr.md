@@ -1,8 +1,18 @@
 ---
 description: Implement, review, create pr
+disable-model-invocation: true
 ---
 
 run /implement, then /v3-review fix per change. When all tests pass, git push and use /merge-request-write-desc to create pr
+
+## PR link (non-negotiable)
+
+After `create_pull_request` succeeds (or when claiming the PR already landed):
+
+1. Final reply **first line** = full absolute `html_url` only (e.g. `https://code.vilor.com/vilor-internal/sysref-v3-api/pulls/880`).
+2. Ban number-only (`#880`, `PR 880`) as the sole reference in that reply or in any later turn that says landed/stop/resume.
+3. Restate the full URL on every later turn that mentions that PR. Brief-answer / "don't repeat" rules do not override this.
+4. Failure to paste the full URL = incomplete command — fix before ending the turn.
 
 ## Commits
 

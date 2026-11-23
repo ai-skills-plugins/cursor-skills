@@ -1,7 +1,7 @@
 ---
 description: Improve code structure and readability without changing behavior.
+disable-model-invocation: true
 ---
-
 # Objective: System Optimization
 Optimize existing code for maximum maintainability and structural integrity while preserving identical functional behavior.
 

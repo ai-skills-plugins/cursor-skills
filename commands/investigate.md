@@ -1,7 +1,7 @@
 ---
 description: Systematically investigate an issue to find its root cause.
+disable-model-invocation: true
 ---
-
 # Objective: Root Cause Integrity
 Systematically isolate the source of a failure using data-driven investigation.
 

@@ -1,7 +1,7 @@
 ---
 description: Implement a solution from an implementation plan, then review, test, run laravel-php-quality-gate after Laravel/PHP changes, and fix up to 3 times on failure.
+disable-model-invocation: true
 ---
-
 # Implement, Review, Test, and Validate
 
 **Re-entry**: prior implement/tasks done → start at step 2 (Review).

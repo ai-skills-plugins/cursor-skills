@@ -1,7 +1,7 @@
 ---
 description: Create or improve automated tests for the codebase.
+disable-model-invocation: true
 ---
-
 # Objective: Quality Assurance & Regression Control
 Build a robust safety net of tests that verify both correctness and failure handling.
 

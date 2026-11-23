@@ -5,8 +5,8 @@ description: >
   bullets only, zero human prose. Use when user says "rewrite for skill",
   "remove fluff", "summarize for skills", "high-density rewrite", or attaches
   doc to compress into SKILL.md / command form.
+disable-model-invocation: true
 ---
-
 Rewrite source into agent-ready Skill/Command. Human prose die. Agent ops stay.
 
 ## Audience

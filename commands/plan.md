@@ -1,7 +1,7 @@
 ---
 description: Refine user prompt and generate an implementation plan saved to ai-agent/implementations.
+disable-model-invocation: true
 ---
-
 - Investigate request: current state + requirements.
 - **MANDATORY FIRST:** Clarify missing/ambiguous details. One question at a time; wait for answer. Prefer single-select radio options + `Other`.
 - Create plan only after all critical clarifications resolved. Use standard `implementation_plan.md` artifact.
